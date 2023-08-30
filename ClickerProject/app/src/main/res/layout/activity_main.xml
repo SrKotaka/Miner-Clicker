@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/minerio1"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="225dp"
+        android:layout_height="215dp"
         android:layout_gravity="center" />
 
     <ScrollView
@@ -145,7 +145,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:backgroundTint="#ffffff"
-                    android:text="Upgrade Cost : 2"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
@@ -192,7 +191,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:backgroundTint="#ffffff"
-                    android:text="Upgrade Cost : 50"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
@@ -240,7 +238,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:backgroundTint="#ffffff"
-                    android:text="Upgrade Cost : 5"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
@@ -287,7 +284,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:backgroundTint="#ffffff"
-                    android:text="Upgrade Cost : 2500"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
@@ -307,7 +303,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Buy Drills"
+                        android:text="Buy Miner Machines"
                         android:textAlignment="center"
                         android:textColor="@color/white" />
 
@@ -333,7 +329,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:backgroundTint="#ffffff"
-                    android:text="Upgrade Cost : 50000"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
@@ -354,7 +349,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Buy Drills"
+                        android:text="Buy Advanced Miner Machines"
                         android:textAlignment="center"
                         android:textColor="@color/white" />
 
@@ -380,7 +375,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:backgroundTint="#ffffff"
-                    android:text="Upgrade Cost : 100000"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
             </LinearLayout>

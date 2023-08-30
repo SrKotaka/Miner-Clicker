@@ -7,25 +7,61 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+
 
 class MainActivity : AppCompatActivity() {
+
+    object GameDatabase {
+        fun getGoldCoins(userId: Int): Int {
+            val connection: Connection = Conn.getConnection()
+            val query = "SELECT gold_coins FROM users WHERE id = ?"
+            val preparedStatement: PreparedStatement = connection.prepareStatement(query)
+            preparedStatement.setInt(1, userId)
+            val resultSet: ResultSet = preparedStatement.executeQuery()
+
+            return if (resultSet.next()) {
+                resultSet.getInt("gold_coins")
+            } else {
+                0
+            }
+        }
+
+        fun updateGoldCoins(userId: Int, newGoldCoins: Int) {
+            val connection: Connection = Conn.getConnection()
+            val query = "UPDATE users SET gold_coins = ? WHERE id = ?"
+            val preparedStatement: PreparedStatement = connection.prepareStatement(query)
+            preparedStatement.setInt(1, newGoldCoins)
+            preparedStatement.setInt(2, userId)
+            preparedStatement.executeUpdate()
+        }
+    }
 
     private lateinit var coinsPerSecondTextView: TextView
     private lateinit var upgrade1CoinsPerSecondTextView: TextView
     private lateinit var upgrade4CoinsPerSecondTextView: TextView
+    private lateinit var upgrade5CoinsPerSecondTextView: TextView
+    private lateinit var upgrade6CoinsPerSecondTextView: TextView
     private var coins = 0.0
     private var mediaPlayer: MediaPlayer? = null
     private var upgrade1Cost = 5.0
     private var upgrade2Cost = 50.0
     private var upgrade3Cost = 2.0
     private var upgrade4Cost = 50000.0
+    private var upgrade5Cost = 250000.0
+    private var upgrade6Cost = 1000000.0
     private var coinsPerSecond = 0.0
     private var upgrade1CoinsPerSecond = 2.0
     private var upgrade4CoinsPerSecond = 100.0
+    private var upgrade5CoinsPerSecond = 25000.0
+    private var upgrade6CoinsPerSecond = 100000.0
     private var powerClick = 1.0
     private var limitesoulscoins = 10.0
     private var soulscoins = 0.0
@@ -41,12 +77,17 @@ class MainActivity : AppCompatActivity() {
         coinsPerSecondTextView = findViewById(R.id.coins_per_second)
         upgrade1CoinsPerSecondTextView = findViewById(R.id.upgrade1_coins_per_second)
         upgrade4CoinsPerSecondTextView = findViewById(R.id.upgrade4_coins_per_second)
+        upgrade5CoinsPerSecondTextView = findViewById(R.id.upgrade5_coins_per_second)
+        upgrade6CoinsPerSecondTextView = findViewById(R.id.upgrade6_coins_per_second)
 
         val minerioImageView: ImageView = findViewById(R.id.minerio1)
         minerioImageView.tag = "minerio1"
         minerioImageView.setOnClickListener {
+
+            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce_animation)
+            minerioImageView.startAnimation(bounceAnimation)
+
             coins += powerClick
-            updateUI()
 
             val hitSound = MediaPlayer.create(this, R.raw.hit)
             hitSound.setOnCompletionListener {
@@ -55,6 +96,10 @@ class MainActivity : AppCompatActivity() {
             }
             hitSound.start()
             hitSoundMap[hitSound.hashCode()] = hitSound
+
+
+
+            updateUI()
         }
 
         val resetButton: Button = findViewById(R.id.reset_game)
@@ -84,6 +129,8 @@ class MainActivity : AppCompatActivity() {
                 upgrade2Cost = (upgrade2Cost * 5) + 50
                 upgrade1CoinsPerSecond *= 2
                 upgrade4CoinsPerSecond *= 2
+                upgrade5CoinsPerSecond *= 2
+                upgrade6CoinsPerSecond *= 2
                 powerClick *= 2
                 upgradeButton2.text = "Upgrade Cost : ${formatDoubleNumber(upgrade2Cost)}"
                 when (minerioImageView.tag) {
@@ -162,7 +209,6 @@ class MainActivity : AppCompatActivity() {
                         minerioImageView.tag = "minerio16"
                         currentMinerioState = "minerio16"
                     }
-
                 }
                 updateUI()
             }
@@ -194,6 +240,30 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
+        upgradeButton5.setOnClickListener {
+            if (coins >= upgrade5Cost) {
+                coins -= upgrade5Cost
+                coinsPerSecond += upgrade5CoinsPerSecond
+                upgrade5CoinsPerSecond *= 1.1
+                upgrade5Cost = (upgrade5Cost * 2) + 5
+                upgradeButton5.text = "Upgrade Cost : ${formatDoubleNumber(upgrade5Cost)}"
+                updateUI()
+            }
+        }
+
+        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
+        upgradeButton6.setOnClickListener {
+            if (coins >= upgrade6Cost) {
+                coins -= upgrade6Cost
+                coinsPerSecond += upgrade6CoinsPerSecond
+                upgrade6CoinsPerSecond *= 1.1
+                upgrade6Cost = (upgrade6Cost * 2) + 5
+                upgradeButton6.text = "Upgrade Cost : ${formatDoubleNumber(upgrade6Cost)}"
+                updateUI()
+            }
+        }
+
         updateUI()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.musica)
@@ -219,6 +289,10 @@ class MainActivity : AppCompatActivity() {
             "Coins per second : ${formatDoubleNumber(upgrade1CoinsPerSecond)}"
         upgrade4CoinsPerSecondTextView.text =
             "Coins per second : ${formatDoubleNumber(upgrade4CoinsPerSecond)}"
+        upgrade5CoinsPerSecondTextView.text =
+            "Coins per second : ${formatDoubleNumber(upgrade5CoinsPerSecond)}"
+        upgrade6CoinsPerSecondTextView.text =
+            "Coins per second : ${formatDoubleNumber(upgrade6CoinsPerSecond)}"
 
         val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
         if (coins >= upgrade1Cost) {
@@ -254,6 +328,22 @@ class MainActivity : AppCompatActivity() {
         } else {
             upgradeButton4.isEnabled = false
             upgradeButton4.setBackgroundColor(Color.GRAY)
+        }
+        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
+        if (coins >= upgrade5Cost) {
+            upgradeButton5.isEnabled = true
+            upgradeButton5.setBackgroundColor(Color.WHITE)
+        } else {
+            upgradeButton5.isEnabled = false
+            upgradeButton5.setBackgroundColor(Color.GRAY)
+        }
+        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
+        if (coins >= upgrade6Cost) {
+            upgradeButton6.isEnabled = true
+            upgradeButton6.setBackgroundColor(Color.WHITE)
+        } else {
+            upgradeButton6.isEnabled = false
+            upgradeButton6.setBackgroundColor(Color.GRAY)
         }
         val resetButton: Button = findViewById(R.id.reset_game)
         if(soulscoins >= 1) {
@@ -294,10 +384,14 @@ class MainActivity : AppCompatActivity() {
         coinsPerSecond = 0.0
         upgrade1CoinsPerSecond = 2.0 * bonus
         upgrade4CoinsPerSecond = 100.0 * bonus
+        upgrade5CoinsPerSecond = 25000.0 * bonus
+        upgrade6CoinsPerSecond = 100000.0 * bonus
         upgrade1Cost = 5.0
         upgrade2Cost = 50.0
         upgrade3Cost = 2.0
         upgrade4Cost = 50000.0
+        upgrade5Cost = 250000.0
+        upgrade6Cost = 1000000.0
         powerClick = 1.0
         soulscoins = 0.0
 
@@ -325,6 +419,12 @@ class MainActivity : AppCompatActivity() {
 
         val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
         upgradeButton4.text = "Upgrade Cost : ${formatDoubleNumber(upgrade4Cost)}"
+
+        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
+        upgradeButton5.text = "Upgrade Cost : ${formatDoubleNumber(upgrade5Cost)}"
+
+        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
+        upgradeButton6.text = "Upgrade Cost : ${formatDoubleNumber(upgrade6Cost)}"
 
         val soulsCoinsHaveTextView = findViewById<TextView>(R.id.souls_coins_have)
         soulsCoinsHaveTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoinshave)}"
@@ -364,10 +464,14 @@ class MainActivity : AppCompatActivity() {
         editor.putFloat("coinsPerSecond", coinsPerSecond.toFloat())
         editor.putFloat("upgrade1CoinsPerSecond", upgrade1CoinsPerSecond.toFloat())
         editor.putFloat("upgrade4CoinsPerSecond", upgrade4CoinsPerSecond.toFloat())
+        editor.putFloat("upgrade4CoinsPerSecond", upgrade5CoinsPerSecond.toFloat())
+        editor.putFloat("upgrade4CoinsPerSecond", upgrade6CoinsPerSecond.toFloat())
         editor.putFloat("upgrade1Cost", upgrade1Cost.toFloat())
         editor.putFloat("upgrade2Cost", upgrade2Cost.toFloat())
         editor.putFloat("upgrade3Cost", upgrade3Cost.toFloat())
         editor.putFloat("upgrade4Cost", upgrade4Cost.toFloat())
+        editor.putFloat("upgrade5Cost", upgrade5Cost.toFloat())
+        editor.putFloat("upgrade6Cost", upgrade6Cost.toFloat())
         editor.putString("currentMinerioState", currentMinerioState)
         editor.apply()
     }
@@ -380,10 +484,14 @@ class MainActivity : AppCompatActivity() {
         coinsPerSecond = prefs.getFloat("coinsPerSecond", 0.0f).toDouble()
         upgrade1CoinsPerSecond = prefs.getFloat("upgrade1CoinsPerSecond", 2.0f).toDouble()
         upgrade4CoinsPerSecond = prefs.getFloat("upgrade4CoinsPerSecond", 100.0f).toDouble()
+        upgrade5CoinsPerSecond = prefs.getFloat("upgrade5CoinsPerSecond", 25000.0f).toDouble()
+        upgrade6CoinsPerSecond = prefs.getFloat("upgrade6CoinsPerSecond", 100000.0f).toDouble()
         upgrade1Cost = prefs.getFloat("upgrade1Cost", 5.0f).toDouble()
         upgrade2Cost = prefs.getFloat("upgrade2Cost", 50.0f).toDouble()
         upgrade3Cost = prefs.getFloat("upgrade3Cost", 2.0f).toDouble()
         upgrade4Cost = prefs.getFloat("upgrade4Cost", 50000.0f).toDouble()
+        upgrade5Cost = prefs.getFloat("upgrade5Cost", 250000.0f).toDouble()
+        upgrade6Cost = prefs.getFloat("upgrade6Cost", 1000000.0f).toDouble()
         currentMinerioState = prefs.getString("currentMinerioState", "minerio1") ?: "minerio1"
 
         val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
@@ -397,6 +505,12 @@ class MainActivity : AppCompatActivity() {
 
         val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
         upgradeButton4.text = "Upgrade Cost : ${formatDoubleNumber(upgrade4Cost)}"
+
+        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
+        upgradeButton5.text = "Upgrade Cost : ${formatDoubleNumber(upgrade5Cost)}"
+
+        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
+        upgradeButton6.text = "Upgrade Cost : ${formatDoubleNumber(upgrade6Cost)}"
 
         val minerioImageView: ImageView = findViewById(R.id.minerio1)
 
@@ -424,6 +538,7 @@ class MainActivity : AppCompatActivity() {
 
         updateUI()
 
+        handler.removeCallbacks(updateCoinsPerSecondTask)
         handler.post(updateCoinsPerSecondTask)
 
     }
