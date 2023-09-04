@@ -6,10 +6,10 @@ namespace MinerClicker_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController: ControllerBase
+    public class UsuarioController: ControllerBase
     {
         private MinerContext _context;
-        public HomeController(MinerContext context)
+        public UsuarioController(MinerContext context)
         {
             _context = context;
         }
