@@ -19,31 +19,6 @@ import java.sql.ResultSet
 
 class MainActivity : AppCompatActivity() {
 
-    object GameDatabase {
-        fun getGoldCoins(userId: Int): Int {
-            val connection: Connection = Conn.getConnection()
-            val query = "SELECT gold_coins FROM users WHERE id = ?"
-            val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            preparedStatement.setInt(1, userId)
-            val resultSet: ResultSet = preparedStatement.executeQuery()
-
-            return if (resultSet.next()) {
-                resultSet.getInt("gold_coins")
-            } else {
-                0
-            }
-        }
-
-        fun updateGoldCoins(userId: Int, newGoldCoins: Int) {
-            val connection: Connection = Conn.getConnection()
-            val query = "UPDATE users SET gold_coins = ? WHERE id = ?"
-            val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            preparedStatement.setInt(1, newGoldCoins)
-            preparedStatement.setInt(2, userId)
-            preparedStatement.executeUpdate()
-        }
-    }
-
     private lateinit var coinsPerSecondTextView: TextView
     private lateinit var upgrade1CoinsPerSecondTextView: TextView
     private lateinit var upgrade4CoinsPerSecondTextView: TextView
@@ -293,6 +268,8 @@ class MainActivity : AppCompatActivity() {
             "Coins per second : ${formatDoubleNumber(upgrade5CoinsPerSecond)}"
         upgrade6CoinsPerSecondTextView.text =
             "Coins per second : ${formatDoubleNumber(upgrade6CoinsPerSecond)}"
+        val soulsCoinsTextView = findViewById<TextView>(R.id.souls_coins)
+        soulsCoinsTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoins)}"
 
         val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
         if (coins >= upgrade1Cost) {
@@ -353,12 +330,6 @@ class MainActivity : AppCompatActivity() {
         else{
             resetButton.isEnabled = false
             resetButton.setBackgroundColor(Color.GRAY)
-        }
-        if (coins >= limitesoulscoins) {
-            soulscoins++
-            limitesoulscoins = limitesoulscoins * 1.1
-            val soulsCoinsTextView = findViewById<TextView>(R.id.souls_coins)
-            soulsCoinsTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoins)}"
         }
     }
 
@@ -430,7 +401,7 @@ class MainActivity : AppCompatActivity() {
         soulsCoinsHaveTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoinshave)}"
 
         val soulsCoinsTextView = findViewById<TextView>(R.id.souls_coins)
-        soulsCoinsTextView.text = "Souls Coins : 0"
+        soulsCoinsTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoins)}"
 
         handler.post(updateCoinsPerSecondTask)
     }

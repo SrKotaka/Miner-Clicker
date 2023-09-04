@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MinerClicker_API.props" />
+</Project>

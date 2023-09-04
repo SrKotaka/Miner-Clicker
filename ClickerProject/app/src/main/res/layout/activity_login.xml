@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".Activity_login">
+
+    <EditText
+        android:id="@+id/editTextLoginUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nome de usuário ou Email"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <EditText
+        android:id="@+id/editTextLoginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Senha"
+        android:textColorHint="@color/black"
+        android:layout_below="@+id/editTextLoginUsername"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_below="@+id/editTextLoginPassword"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+    <TextView
+        android:id="@+id/textViewLoginLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não possui uma conta? Clique aqui"
+        android:layout_gravity="center"
+        android:textColor="#0088FF"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:onClick="goToRegister" />
+
+
+
+</LinearLayout>
