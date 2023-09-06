@@ -3,6 +3,7 @@ import retrofit2.Callback
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import retrofit2.Call
 import retrofit2.Response
@@ -16,27 +17,27 @@ class Activity_register : AppCompatActivity() {
 
         val buttonRegister: Button = findViewById(R.id.buttonRegister)
         buttonRegister.setOnClickListener {
-            val novoUsuario = Usuario(id = 0, nome = "Nome do Usuário", email = "email@example.com", senha = "senha123")
-
+            val novoUsuario = Usuario(id = 1, nome = "Nome do Usuário", email = "email@example.com", senha = "senha123")
             val call = ApiClient.apiService.criarUsuario(novoUsuario)
-            val context = this
             call.enqueue(object : Callback<Usuario> {
                 override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
                     if (response.isSuccessful) {
                         val usuarioCriado = response.body()
-                        val intent = Intent(context, MainActivity::class.java)
-                        startActivity(intent)
+                        
                     } else {
-                        // Lidar com erros
+                        Log.e("API Error", "Response Code: ${response.code()}")
+                        Log.e("API Error", "Error Body: ${response.errorBody()?.string()}")
                     }
                 }
 
                 override fun onFailure(call: Call<Usuario>, t: Throwable) {
-                    // Lidar com falhas na comunicação
+                    Log.e("API Error", "Failed to make the request: ${t.message}")
                 }
             })
         }
     }
+    //val game = Intent(this, MainActivity::class.java)
+   // startActivity(game)
 
     fun goToLogin(view: View) {
         val intent = Intent(this, Activity_login::class.java)
