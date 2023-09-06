@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MinerClicker_API.Data;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,6 @@ builder.Services.AddDbContext<MinerContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

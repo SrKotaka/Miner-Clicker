@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MinerClicker_API.Models;
-using Microsoft.Extensions.Configuration;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MinerClicker_API.Data
 {

@@ -41,32 +41,28 @@ namespace MinerClicker_API.Controllers
         [HttpPost]
         public async Task<ActionResult> post(Usuario model)
         {
-        try
-            {
+            
+            try{
                 _context.Usuario.Add(model);
-                if (await _context.SaveChangesAsync() == 1)
-                {
-                    return Created($"/api/usuario/{model.id}",model);
-                }
+                await _context.SaveChangesAsync();
+                return Created($"/api/usuario/{model.id}", model);
             }
-        catch
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
             }
-            return BadRequest();
         }
         [HttpDelete("{Userid}")]
         public async Task<ActionResult> delete(int Userid)
         {
             try{
-                var usuario = await _context.Usuario.FindAsync(Userid);
-                if(usuario == null)
+                var result = _context.Usuario.Find(Userid);
+                if (result == null)
                 {
                     return NotFound();
                 }
-                _context.Remove(usuario);
+                _context.Usuario.Remove(result);
                 await _context.SaveChangesAsync();
-                return NoContent();
+                return Ok();
             }
             catch{
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
@@ -75,24 +71,20 @@ namespace MinerClicker_API.Controllers
         [HttpPut("{UsuarioId}")]
         public async Task<IActionResult> put(int UsuarioId, Usuario dadosUsuarioAlt)
         {
-            try {
-          
-            var result = await _context.Usuario.FindAsync(UsuarioId);
-            if (UsuarioId != result.id)
-            {
-                
-                return BadRequest();
+            try{
+                var result = _context.Usuario.Find(UsuarioId);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                result.nome = dadosUsuarioAlt.nome;
+                result.email = dadosUsuarioAlt.email;
+                result.senha = dadosUsuarioAlt.senha;
+                await _context.SaveChangesAsync();
+                return Ok();
             }
-            result.id = dadosUsuarioAlt.id;
-            result.nome = dadosUsuarioAlt.nome;
-            result.email = dadosUsuarioAlt.email;
-            result.senha = dadosUsuarioAlt.senha;
-            await _context.SaveChangesAsync();
-            return Created($"/api/usuario/{dadosUsuarioAlt.id}", dadosUsuarioAlt);
-            }
-            catch
-            {
-            return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
             }
         }
     }

@@ -3,18 +3,18 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-    @GET("api/usuario")
-    fun getAllUsuarios(): Call<List<Usuario>>
+    @GET("usuario")
+    fun getUsuarios(): Call<List<Usuario>>
 
-    @GET("api/usuario/{Userid}")
-    fun getUsuario(@Path("Userid") userId: Int): Call<Usuario>
+    @GET("usuario/{id}")
+    fun getUsuario(@Path("id") id: Int): Call<Usuario>
 
-    @POST("api/usuario")
+    @POST("usuario")
     fun criarUsuario(@Body usuario: Usuario): Call<Usuario>
 
-    @PUT("api/usuario/{UsuarioId}")
-    fun atualizarUsuario(@Path("UsuarioId") userId: Int, @Body usuario: Usuario): Call<Usuario>
+    @PUT("usuario/{id}")
+    fun atualizarUsuario(@Path("id") id: Int, @Body usuario: Usuario): Call<Usuario>
 
-    @DELETE("api/usuario/{Userid}")
-    fun deletarUsuario(@Path("Userid") userId: Int): Call<Void>
+    @DELETE("usuario/{id}")
+    fun deletarUsuario(@Path("id") id: Int): Call<Usuario>
 }
