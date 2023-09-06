@@ -80,6 +80,7 @@ namespace MinerClicker_API.Controllers
             var result = await _context.Usuario.FindAsync(UsuarioId);
             if (UsuarioId != result.id)
             {
+                
                 return BadRequest();
             }
             result.id = dadosUsuarioAlt.id;
