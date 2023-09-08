@@ -17,10 +17,11 @@ class Activity_register : AppCompatActivity() {
 
         val buttonRegister: Button = findViewById(R.id.buttonRegister)
         buttonRegister.setOnClickListener {
+            val id = 1
             val nome = findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.editTextUsername).text.toString()
             val email = findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.editTextEmail).text.toString()
             val senha = findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.editTextPassword).text.toString()
-            val usuario = Usuario( nome, email, senha)
+            val usuario = Usuario( id,nome, email, senha)
             runBlocking {
                 launch(Dispatchers.IO) {
                     val response = ApiClient.apiService.criarUsuario(usuario).execute()
