@@ -3,12 +3,8 @@ package com.example.clickerproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class Activity_login : AppCompatActivity() {
@@ -18,7 +14,8 @@ class Activity_login : AppCompatActivity() {
 
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
         buttonLogin.setOnClickListener {
-
+            val game = Intent(this@Activity_login, MainActivity::class.java)
+            startActivity(game)
         }
     }
 

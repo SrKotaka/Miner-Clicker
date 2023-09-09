@@ -12,9 +12,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import java.sql.Connection
-import java.sql.PreparedStatement
-import java.sql.ResultSet
 
 
 class MainActivity : AppCompatActivity() {
