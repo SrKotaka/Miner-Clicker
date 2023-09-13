@@ -1,26 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Felip\\OneDrive\\Documentos\\GitHub\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj": {}
+    "C:\\Users\\u22129\\Documents\\Git uploads\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Felip\\OneDrive\\Documentos\\GitHub\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj": {
+    "C:\\Users\\u22129\\Documents\\Git uploads\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Felip\\OneDrive\\Documentos\\GitHub\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj",
+        "projectUniqueName": "C:\\Users\\u22129\\Documents\\Git uploads\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj",
         "projectName": "MinerClicker_API",
-        "projectPath": "C:\\Users\\Felip\\OneDrive\\Documentos\\GitHub\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj",
-        "packagesPath": "C:\\Users\\Felip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Felip\\OneDrive\\Documentos\\GitHub\\Miner-Clicker\\MinerClicker_API\\obj\\",
+        "projectPath": "C:\\Users\\u22129\\Documents\\Git uploads\\Miner-Clicker\\MinerClicker_API\\MinerClicker_API.csproj",
+        "packagesPath": "C:\\Users\\u22129\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\u22129\\Documents\\Git uploads\\Miner-Clicker\\MinerClicker_API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Felip\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\u22129\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Users\\Felip\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -81,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\Felip\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.110\\RuntimeIdentifierGraph.json"
         }
       }
     }

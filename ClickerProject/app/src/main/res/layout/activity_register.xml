@@ -7,26 +7,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="#FFA500"
     tools:context=".Activity_register">
-
+    <ImageView
+            android:src="@drawable/logo"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="130dp"
+    />
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nome de usuário"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/white"
         android:textColor="@color/black"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"/>
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/white"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
@@ -36,7 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Senha"
-        android:textColorHint="@color/black"
+        android:password="true"
+        android:textColorHint="@color/white"
         android:textColor="@color/black"
         android:layout_below="@+id/editTextUsername"
         android:layout_marginTop="20dp"
@@ -44,15 +51,16 @@
         android:layout_marginRight="20dp" />
 
     <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrar"
-        android:layout_below="@+id/editTextPassword"
-        android:textColor="@color/white"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            android:layout_below="@+id/editTextPassword"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@android:color/holo_green_dark"/>
     <TextView
         android:id="@+id/textViewLoginLink"
         android:layout_width="wrap_content"
