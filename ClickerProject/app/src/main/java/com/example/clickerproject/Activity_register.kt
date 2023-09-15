@@ -26,8 +26,8 @@ class Activity_register : AppCompatActivity() {
 
     fun registerInDataBase(view: View) {
         val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.setValue("Hello world")
+        val myRef = database.getReference("User")
+        val nome = findViewById.(R.id.editTextUsername)
+        myRef.setValue(nome,email,senha)
     }
 }
