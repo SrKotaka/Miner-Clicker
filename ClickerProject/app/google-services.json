@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "125591002180",
+    "firebase_url": "https://compact-moment-382013-default-rtdb.firebaseio.com",
+    "project_id": "compact-moment-382013",
+    "storage_bucket": "compact-moment-382013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125591002180:android:6e34cec0a5c96b864e3011",
+        "android_client_info": {
+          "package_name": "com.example.clickerproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOimSOPudC2y1M608dWp0q_477-LT0SfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

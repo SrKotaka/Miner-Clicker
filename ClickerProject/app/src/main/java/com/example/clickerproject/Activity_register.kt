@@ -16,25 +16,7 @@ class Activity_register : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         val buttonRegister: Button = findViewById(R.id.buttonRegister)
         buttonRegister.setOnClickListener {
-            val id = 1
-            val nomeDigitado = findViewById<EditText>(R.id.editTextUsername).toString()
-            val emailDigitado = findViewById<EditText>(R.id.editTextEmail).toString()
-            val senhaDigitado = findViewById<EditText>(R.id.editTextPassword).toString()
-            val usuario = Usuario(id,nomeDigitado, emailDigitado, senhaDigitado)
-            val call = apiService.cadastrarUsuario(usuario)
-            call.enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        val game = Intent(this@Activity_register, MainActivity::class.java)
-                        startActivity(game)
-                    } else {
-                        Log.e("onResponse error", response.code().toString())
-                    }
-                }
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    Log.e("onFailure error", t.message.toString())
-                }
-            })
+
         }
     }
 
