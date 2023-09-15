@@ -31,7 +31,9 @@ class Activity_register : AppCompatActivity() {
         val nome = findViewById<EditText>(R.id.editTextUsername).text.toString()
         val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
-        myRef.setValue("${"nome: " + nome + " \r\n email: " + email + " \r\n senha: " + senha}")
+        myRef.setValue("${"nome: " + nome + ", email: " + email + ", senha: " + senha}")
+        val game = Intent(this@Activity_register, MainActivity::class.java)
+        startActivity(game)
     }
 }
 
