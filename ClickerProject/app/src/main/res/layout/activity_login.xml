@@ -16,7 +16,7 @@
             android:layout_marginTop="150dp"
     />
     <EditText
-        android:id="@+id/editTextLoginUsername"
+        android:id="@+id/editTextLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nome de usuário ou Email"

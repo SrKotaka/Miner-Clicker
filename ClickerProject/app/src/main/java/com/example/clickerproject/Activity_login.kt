@@ -23,7 +23,7 @@ class Activity_login : AppCompatActivity() {
     }
 
     fun loginInDataBase(view: View) {
-        val email = findViewById<EditText>(R.id.editTextLoginUsername).text.toString()
+        val email = findViewById<EditText>(R.id.editTextLoginEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextLoginPassword).text.toString()
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
@@ -37,10 +37,6 @@ class Activity_login : AppCompatActivity() {
                         startActivity(game)
                     }
                 } else {
-                    // Falha no login
-                    if (task.exception != null) {
-                        Log.e("LoginError", task.exception.toString())
-                    }
                     Toast.makeText(this@Activity_login, "Login falhou.", Toast.LENGTH_SHORT).show()
                 }
             }
