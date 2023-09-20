@@ -37,10 +37,10 @@ class Activity_login : AppCompatActivity() {
                         startActivity(game)
                     }
                 } else {
-                    // Falha no login
-                    Toast.makeText(this@Activity_login, "Falha no login, verifique suas credenciais", Toast.LENGTH_SHORT).show()
+                    // Se o login falhar, exiba uma mensagem ao usuário.
+                    Toast.makeText(this@Activity_login, "Login falhou.", Toast.LENGTH_SHORT).show()
                 }
-            }
+        }
     }
 
 }
