@@ -27,14 +27,29 @@ class Activity_register : AppCompatActivity() {
 
     fun registerInDataBase(view: View) {
         val database = Firebase.database
-        val myRef = database.getReference("User")
+        val myRef = database.getReference("Users") // Use "Users" como o nó pai para armazenar todos os usuários
+
         val nome = findViewById<EditText>(R.id.editTextUsername).text.toString()
         val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
-        myRef.setValue("${"nome: " + nome + ", email: " + email + ", senha: " + senha}")
-        val game = Intent(this@Activity_register, MainActivity::class.java)
-        startActivity(game)
+
+        // Crie um ID único para cada usuário
+        val userId = myRef.push().key
+
+        if (userId != null) {
+            val user = HashMap<String, String>()
+            user["nome"] = nome
+            user["email"] = email
+            user["senha"] = senha
+
+            // Adicione o usuário com o ID único ao nó "Users"
+            myRef.child(userId).setValue(user)
+
+            val game = Intent(this@Activity_register, MainActivity::class.java)
+            startActivity(game)
+        }
     }
+
 }
 
 
