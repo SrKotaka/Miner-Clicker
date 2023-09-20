@@ -23,8 +23,8 @@ class Activity_login : AppCompatActivity() {
     }
 
     fun loginInDataBase(view: View) {
-        val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
-        val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
+        val email = findViewById<EditText>(R.id.editTextLoginUsername).text.toString()
+        val senha = findViewById<EditText>(R.id.editTextLoginPassword).text.toString()
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->

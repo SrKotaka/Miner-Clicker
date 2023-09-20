@@ -23,9 +23,9 @@ class Activity_register : AppCompatActivity() {
         val database = Firebase.database
         val myRef = database.getReference("Users") // Use "Users" como o nó pai para armazenar todos os usuários
 
-        val nome = findViewById<EditText>(R.id.editTextUsername).text.toString()
-        val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
-        val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
+        val nome = findViewById<EditText>(R.id.editTextRegisterUsername).text.toString()
+        val email = findViewById<EditText>(R.id.editTextRegisterEmail).text.toString()
+        val senha = findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
 
         // Crie um ID único para cada usuário
         val userId = myRef.push().key

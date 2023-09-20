@@ -17,7 +17,7 @@
             android:layout_marginTop="130dp"
     />
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextRegisterUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nome de usuário"
@@ -28,7 +28,7 @@
         android:layout_marginRight="20dp"/>
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editTextRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
@@ -38,7 +38,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextRegisterPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Senha"
@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:text="Registrar"
             android:onClick="registerInDataBase"
-            android:layout_below="@+id/editTextPassword"
             android:textColor="@color/white"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
