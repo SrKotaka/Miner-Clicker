@@ -3,12 +3,11 @@ package com.example.clickerproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 
 
@@ -27,7 +26,8 @@ class Activity_login : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Login bem-sucedido
                     val user = FirebaseAuth.getInstance().currentUser
@@ -37,10 +37,13 @@ class Activity_login : AppCompatActivity() {
                         startActivity(game)
                     }
                 } else {
-                    // Se o login falhar, exiba uma mensagem ao usuário.
+                    // Falha no login
+                    if (task.exception != null) {
+                        Log.e("LoginError", task.exception.toString())
+                    }
                     Toast.makeText(this@Activity_login, "Login falhou.", Toast.LENGTH_SHORT).show()
                 }
-        }
+            }
     }
 
 }
