@@ -23,7 +23,7 @@ class Activity_login : AppCompatActivity() {
         startActivity(register)
     }
 
-    fun loginToDataBase(view: View) {
+    fun loginInDataBase(view: View) {
         val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
 
