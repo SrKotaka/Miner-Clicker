@@ -16,16 +16,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="130dp"
     />
-    <EditText
-        android:id="@+id/editTextRegisterUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nome de usuário"
-        android:textColorHint="@color/white"
-        android:textColor="@color/black"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
 
     <EditText
         android:id="@+id/editTextRegisterEmail"

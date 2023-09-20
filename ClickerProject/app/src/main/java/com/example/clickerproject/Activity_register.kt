@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+
 
 class Activity_register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,27 +21,20 @@ class Activity_register : AppCompatActivity() {
     }
 
     fun registerInDataBase(view: View) {
-        val database = Firebase.database
-        val myRef = database.getReference("Users") // Use "Users" como o nó pai para armazenar todos os usuários
-
-        val nome = findViewById<EditText>(R.id.editTextRegisterUsername).text.toString()
         val email = findViewById<EditText>(R.id.editTextRegisterEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
 
-        // Crie um ID único para cada usuário
-        val userId = myRef.push().key
-
-        if (userId != null) {
-            val user = HashMap<String, String>()
-            user["nome"] = nome
-            user["email"] = email
-            user["senha"] = senha
-
-            // Adicione o usuário com o ID único ao nó "Users"
-            myRef.child(userId).setValue(user)
-
-            val game = Intent(this@Activity_register, MainActivity::class.java)
-            startActivity(game)
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    if (user != null) {
+                        val game = Intent(this@Activity_register, MainActivity::class.java)
+                        startActivity(game)
+                    }
+                } else {
+                    Toast.makeText(this@Activity_register, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
