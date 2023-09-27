@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.FirebaseApp
 import android.widget.Toast
 
 
@@ -46,7 +45,7 @@ class Activity_login : AppCompatActivity() {
                     // No user found with the provided credentials
                     Toast.makeText(
                         applicationContext,
-                        "Login failed. Please check your email and password.",
+                        "Seu login não funcionou, por favor tente novamente",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -55,7 +54,7 @@ class Activity_login : AppCompatActivity() {
                 // Handle any errors that occur during the query
                 Toast.makeText(
                     applicationContext,
-                    "Login failed. Please try again.",
+                    "Login falhou, Porfavor tente novamente",
                     Toast.LENGTH_SHORT
                 ).show()
             }
