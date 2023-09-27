@@ -21,21 +21,24 @@ class Activity_register : AppCompatActivity() {
     }
 
     fun registerInDataBase(view: View) {
+        val nome = findViewById<EditText>(R.id.editTextRegisterName).text.toString()
         val email = findViewById<EditText>(R.id.editTextRegisterEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = FirebaseAuth.getInstance().currentUser
-                    if (user != null) {
-                        val game = Intent(this@Activity_register, MainActivity::class.java)
-                        startActivity(game)
-                    }
-                } else {
-                    Toast.makeText(this@Activity_register, task.exception.toString(), Toast.LENGTH_SHORT).show()
-                }
-        }
+        
+
+        //FirebaseAuth.getInstance().createUserWithEmailAndPassword(nome,email, senha)
+        //    .addOnCompleteListener { task ->
+        //        if (task.isSuccessful) {
+        //            val user = FirebaseAuth.getInstance().currentUser
+        //            if (user != null) {
+        //                val game = Intent(this@Activity_register, MainActivity::class.java)
+        //                startActivity(game)
+        //            }
+        //        } else {
+        //            Toast.makeText(this@Activity_register, task.exception.toString(), Toast.LENGTH_SHORT).show()
+        //        }
+        //}
     }
 
 }

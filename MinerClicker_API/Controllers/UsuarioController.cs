@@ -21,12 +21,12 @@ namespace MinerClicker_API.Controllers
         {
             return _context.Usuario.ToList();
         }
-        [HttpGet("{Userid}")]
-        public ActionResult<Usuario> Get(int Userid)
+        [HttpGet("{Useremail}")]
+        public ActionResult<Usuario> Get(int Useremail)
         {
         try
             {
-            var result = _context.Usuario.Find(Userid);
+            var result = _context.Usuario.Find(Useremail);
             if (result == null)
             {
                 return NotFound();
@@ -45,17 +45,17 @@ namespace MinerClicker_API.Controllers
             try{
                 _context.Usuario.Add(model);
                 await _context.SaveChangesAsync();
-                return Created($"/api/usuario/{model.id}", model);
+                return Created($"/api/usuario/{model.email}", model);
             }
             catch{
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
             }
         }
-        [HttpDelete("{Userid}")]
-        public async Task<ActionResult> delete(int Userid)
+        [HttpDelete("{Useremail}")]
+        public async Task<ActionResult> delete(int Useremail)
         {
             try{
-                var result = _context.Usuario.Find(Userid);
+                var result = _context.Usuario.Find(Useremail);
                 if (result == null)
                 {
                     return NotFound();
@@ -68,7 +68,7 @@ namespace MinerClicker_API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
             }
         }
-        [HttpPut("{UsuarioId}")]
+        [HttpPut("{Useremail}")]
         public async Task<IActionResult> put(int UsuarioId, Usuario dadosUsuarioAlt)
         {
             try{
