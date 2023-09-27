@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private var upgrade5CoinsPerSecond = 25000.0
     private var upgrade6CoinsPerSecond = 100000.0
     private var powerClick = 1.0
-    private var limitesoulscoins = 10.0
     private var soulscoins = 0.0
     private var soulscoinshave = 0.0
     private val hitSoundMap = mutableMapOf<Int, MediaPlayer>()
