@@ -32,25 +32,38 @@ class Activity_register : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.editTextRegisterEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
 
-        val db = FirebaseFirestore.getInstance()
 
-        // Create a collection reference and add a new document
-        val usersCollection = db.collection("usuarios")
-        val userData = hashMapOf(
-            "email" to email,
-            "nome" to nome,
-            "senha" to senha
-        )
+        if(nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
+            val db = FirebaseFirestore.getInstance()
 
-        usersCollection.add(userData)
-            .addOnSuccessListener { documentReference ->
-                val game = Intent(this@Activity_register, MainActivity::class.java)
-                startActivity(game)
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(applicationContext, "Seu registro não funcionou, por favor tente novamente", Toast.LENGTH_SHORT).show()
-            }
+            // Create a collection reference and add a new document
+            val usersCollection = db.collection("usuarios")
+            val userData = hashMapOf(
+                "email" to email,
+                "nome" to nome,
+                "senha" to senha
+            )
 
+            usersCollection.add(userData)
+                .addOnSuccessListener { documentReference ->
+                    val game = Intent(this@Activity_register, MainActivity::class.java)
+                    startActivity(game)
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        applicationContext,
+                        "Seu registro não funcionou, por favor tente novamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+        else{
+            Toast.makeText(
+                applicationContext,
+                "Preencha todos os campos acima",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
 }
