@@ -32,7 +32,7 @@ class Activity_login : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val usersCollection = db.collection("usuarios")
 
-     
+
         usersCollection.whereEqualTo("email", email)
             .whereEqualTo("senha", senha)
             .get()
