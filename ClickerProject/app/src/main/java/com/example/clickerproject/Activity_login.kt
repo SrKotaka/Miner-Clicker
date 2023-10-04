@@ -32,17 +32,17 @@ class Activity_login : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val usersCollection = db.collection("usuarios")
 
-        // Query the Firestore collection to find a user with the provided email and password
+
         usersCollection.whereEqualTo("email", email)
             .whereEqualTo("senha", senha)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
-                    // Login successful, user with matching email and password found
+
                     val game = Intent(this@Activity_login, MainActivity::class.java)
                     startActivity(game)
                 } else {
-                    // No user found with the provided credentials
+
                     Toast.makeText(
                         applicationContext,
                         "Seu login não funcionou, por favor tente novamente",
@@ -51,7 +51,6 @@ class Activity_login : AppCompatActivity() {
                 }
             }
             .addOnFailureListener { e ->
-                // Handle any errors that occur during the query
                 Toast.makeText(
                     applicationContext,
                     "Login falhou, Porfavor tente novamente",

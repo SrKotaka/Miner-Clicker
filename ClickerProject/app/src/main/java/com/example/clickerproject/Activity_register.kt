@@ -36,7 +36,7 @@ class Activity_register : AppCompatActivity() {
         if(nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
 
-            // Create a collection reference and add a new document
+
             val usersCollection = db.collection("usuarios")
             val userData = hashMapOf(
                 "email" to email,
