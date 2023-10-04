@@ -21,12 +21,12 @@ namespace MinerClicker_API.Controllers
         {
             return _context.Usuario.ToList();
         }
-        [HttpGet("{Useremail}")]
-        public ActionResult<Usuario> Get(int Useremail)
+        [HttpGet("{Userid}")]
+        public ActionResult<Usuario> Get(int Userid)
         {
         try
             {
-            var result = _context.Usuario.Find(Useremail);
+            var result = _context.Usuario.Find(Userid);
             if (result == null)
             {
                 return NotFound();
@@ -45,17 +45,17 @@ namespace MinerClicker_API.Controllers
             try{
                 _context.Usuario.Add(model);
                 await _context.SaveChangesAsync();
-                return Created($"/api/usuario/{model.email}", model);
+                return Created($"/api/Usuario/{model.id}", model);
             }
             catch{
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
             }
         }
-        [HttpDelete("{Useremail}")]
-        public async Task<ActionResult> delete(int Useremail)
+        [HttpDelete("{Userid}")]
+        public async Task<ActionResult> delete(int Userid)
         {
             try{
-                var result = _context.Usuario.Find(Useremail);
+                var result = _context.Usuario.Find(Userid);
                 if (result == null)
                 {
                     return NotFound();
@@ -68,11 +68,11 @@ namespace MinerClicker_API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError,"Falha no acesso ao banco de dados.");
             }
         }
-        [HttpPut("{Useremail}")]
-        public async Task<IActionResult> put(int UsuarioId, Usuario dadosUsuarioAlt)
+        [HttpPut("{Userid}")]
+        public async Task<IActionResult> put(int Userid, Usuario dadosUsuarioAlt)
         {
             try{
-                var result = _context.Usuario.Find(UsuarioId);
+                var result = _context.Usuario.Find(Userid);
                 if (result == null)
                 {
                     return NotFound();

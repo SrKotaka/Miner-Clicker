@@ -147,9 +147,9 @@ class MainActivity : AppCompatActivity() {
                         minerioImageView.setImageResource(R.drawable.minerio10)
                         minerioImageView.tag = "minerio10"
                         currentMinerioState = "minerio10"
+                        minerioImageView.setImageResource(R.drawable.minerio11)
                     }
                     "minerio10" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio11)
                         minerioImageView.tag = "minerio11"
                         currentMinerioState = "minerio11"
                     }
