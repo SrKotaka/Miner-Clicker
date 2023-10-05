@@ -50,12 +50,14 @@
             android:layout_height="50dp"
             android:layout_width="50dp"
             android:background="@drawable/leaderboard"
+            android:onClick="goToRank"
     />
     <ImageButton
             android:layout_gravity="end"
             android:layout_height="40dp"
             android:layout_width="70dp"
             android:background="@drawable/achivements"
+            android:onClick="goToAchivements"
     />
 
     <ScrollView

@@ -3,14 +3,17 @@ package com.example.clickerproject
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -525,5 +528,24 @@ class MainActivity : AppCompatActivity() {
         updateUI()
 
         handler.post(updateCoinsPerSecondTask)
+    }
+
+    fun goToAchivements(view: View) {
+        try {
+            val achivements = Intent(this@MainActivity, Activity_achivements::class.java)
+            startActivity(achivements)
+        }
+        catch (e: Exception){
+            Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun goToRank(view: View) {
+        try {
+            val rank = Intent(this@MainActivity, Activity_rank::class.java)
+            startActivity(rank)
+        }
+        catch (e: Exception){
+            Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 }
