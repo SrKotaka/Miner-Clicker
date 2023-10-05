@@ -16,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const usersCol = collection(db, 'usuarios');
-// dataInicio, dataTermino, dia, id, quantExercicios, usuario
+
 
 const getUsers = async () => {
     const data = await getDocs(usersCol);
