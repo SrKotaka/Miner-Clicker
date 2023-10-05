@@ -111,54 +111,6 @@ expApp.post('/usuarios', (req, res) => {
     })
 });
 
-expApp.put('/usuarios/:id', (req, res) => {
-    const id = req.params.id;
-    const {email, name, password} = req.body;
-
-    existsUser(id).then(exists => {
-        if (exists) {
-            if (name.length < 3 || name.length > 30) {
-                res.status(400)
-                res.send('Name must be over 3 characters and under 30');
-            }
-            else if (email.length < 5 || email.length > 30 || !email.includes('@')) {
-                res.status(400)
-                res.send('Email must be over 5 characters and under 30 and contain @');
-            }
-            else if (password.length < 8 || password.length > 30) {
-                res.status(400)
-                res.send('Password must be over 8 characters and under 30');
-            }
-            else {
-                addUser(email, id, name, password).then( () => {
-                    res.status(200);
-                    res.send('User updated');
-                });
-            }
-        }
-        else {
-            res.send('User does not exist');
-            res.status(404)
-        }
-    });
-});
-
-expApp.delete('/usuarios/:id', (req, res) => {
-    const id = req.params.id;
-    existsUser(id).then(exists => {
-        if (exists) {
-            deleteDoc(doc(db, "usuarios", id)).then( () => {
-                res.status(200);
-                res.send('User deleted');
-            });
-        }
-        else {
-            res.send('User does not exist');
-            res.status(404)
-        }
-    })
-})
-
 expApp.use((req, res) => {
     res.status(404).send('404 Not Found');
 });

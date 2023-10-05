@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.FirebaseApp
 import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class Activity_register : AppCompatActivity() {
 
@@ -32,32 +36,44 @@ class Activity_register : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.editTextRegisterEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
 
+        if (nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://localhost:3000/usuarios") // Replace with your API URL
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
 
-        if(nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
-            val db = FirebaseFirestore.getInstance()
+            val apiService = retrofit.create(ApiService::class.java)
 
+            val userData = UserData(email, nome, senha) // Create UserData object
 
-            val usersCollection = db.collection("usuarios")
-            val userData = hashMapOf(
-                "email" to email,
-                "nome" to nome,
-                "senha" to senha
-            )
+            val call = apiService.registerUser(userData)
 
-            usersCollection.add(userData)
-                .addOnSuccessListener { documentReference ->
-                    val game = Intent(this@Activity_register, MainActivity::class.java)
-                    startActivity(game)
+            call.enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        // Registration was successful, navigate to MainActivity
+                        val game = Intent(this@Activity_register, MainActivity::class.java)
+                        startActivity(game)
+                    } else {
+                        // Registration failed, show an error message
+                        Toast.makeText(
+                            applicationContext,
+                            "Seu registro não funcionou, por favor tente novamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-                .addOnFailureListener { e ->
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    // Request failed, show an error message
                     Toast.makeText(
                         applicationContext,
-                        "Seu registro não funcionou, por favor tente novamente",
+                        "Erro de conexão com o servidor",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-        }
-        else{
+            })
+        } else {
             Toast.makeText(
                 applicationContext,
                 "Preencha todos os campos acima",

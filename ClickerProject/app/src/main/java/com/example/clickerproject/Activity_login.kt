@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class Activity_login : AppCompatActivity() {
@@ -29,20 +33,25 @@ class Activity_login : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.editTextLoginEmail).text.toString()
         val senha = findViewById<EditText>(R.id.editTextLoginPassword).text.toString()
 
-        val db = FirebaseFirestore.getInstance()
-        val usersCollection = db.collection("usuarios")
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://localhost:3000/usuarios") // Replace with your API URL
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
+        val apiService = retrofit.create(ApiService::class.java)
 
-        usersCollection.whereEqualTo("email", email)
-            .whereEqualTo("senha", senha)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (!querySnapshot.isEmpty) {
+        val loginData = LoginData(email, senha) // Create LoginData object
 
+        val call = apiService.loginUser(loginData)
+
+        call.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                    // Login was successful, navigate to MainActivity
                     val game = Intent(this@Activity_login, MainActivity::class.java)
                     startActivity(game)
                 } else {
-
+                    // Login failed, show an error message
                     Toast.makeText(
                         applicationContext,
                         "Seu login não funcionou, por favor tente novamente",
@@ -50,13 +59,16 @@ class Activity_login : AppCompatActivity() {
                     ).show()
                 }
             }
-            .addOnFailureListener { e ->
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                // Request failed, show an error message
                 Toast.makeText(
                     applicationContext,
-                    "Login falhou, Porfavor tente novamente",
+                    "Erro de conexão com o servidor",
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        })
     }
 
 
