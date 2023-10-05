@@ -543,8 +543,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val rank = Intent(this@MainActivity, Activity_rank::class.java)
             startActivity(rank)
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
