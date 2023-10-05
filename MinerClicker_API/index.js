@@ -58,7 +58,7 @@ expApp.get('/usuarios', (req, res) => {
 expApp.get('/usuarios/:id', (req, res) => {
     const id = req.params.id;
     getUsers().then(users => {
-        const user = users.find(user => user.id === id);
+        const user = users.find(user => user.id.toString() === id.toString());
         if (user) {
             res.send(user);
         } else {
