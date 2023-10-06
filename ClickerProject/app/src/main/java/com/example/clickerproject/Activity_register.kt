@@ -38,7 +38,7 @@ class Activity_register : AppCompatActivity() {
 
         if (nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://localhost:3000/usuarios") // Replace with your API URL
+                .baseUrl("http://192.168.137.48:3000/usuarios/") // Replace with your API URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -68,7 +68,7 @@ class Activity_register : AppCompatActivity() {
                     // Request failed, show an error message
                     Toast.makeText(
                         applicationContext,
-                        "Erro de conexão com o servidor",
+                        "${t.message}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

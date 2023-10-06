@@ -30,45 +30,7 @@ class Activity_login : AppCompatActivity() {
     }
 
     fun loginInDataBase(view: View) {
-        val email = findViewById<EditText>(R.id.editTextLoginEmail).text.toString()
-        val senha = findViewById<EditText>(R.id.editTextLoginPassword).text.toString()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost:3000/usuarios") // Replace with your API URL
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(ApiService::class.java)
-
-        val loginData = LoginData(email, senha) // Create LoginData object
-
-        val call = apiService.loginUser(loginData)
-
-        call.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    // Login was successful, navigate to MainActivity
-                    val game = Intent(this@Activity_login, MainActivity::class.java)
-                    startActivity(game)
-                } else {
-                    // Login failed, show an error message
-                    Toast.makeText(
-                        applicationContext,
-                        "Seu login não funcionou, por favor tente novamente",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                // Request failed, show an error message
-                Toast.makeText(
-                    applicationContext,
-                    "Erro de conexão com o servidor",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
     }
 
 
