@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {collection, doc, getDocs, getFirestore, setDoc, deleteDoc } from 'firebase/firestore/lite';
+import {collection, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore/lite';
 import express from 'express';
 
 const firebaseConfig = {
@@ -16,7 +16,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const usersCol = collection(db, 'usuarios');
-
 
 const getUsers = async () => {
     const data = await getDocs(usersCol);
