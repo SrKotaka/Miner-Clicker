@@ -41,8 +41,8 @@ const existsUserEmail = async (email) => {
     })
     return exists;
 }
-const addUser = async (email, id, name, password) => {
-    await setDoc(doc(db, "usuarios", id), {email, id, name, password});
+const addUser = async (email, name, password) => {
+    await setDoc(doc(db, "usuarios", email), {email, name, password});
 }
 
 const expApp = express();
@@ -54,10 +54,10 @@ expApp.get('/usuarios', (req, res) => {
     getUsers().then(users => res.send(users));
 });
 
-expApp.get('/usuarios/:id', (req, res) => {
-    const id = req.params.id;
+expApp.get('/usuarios/:email', (req, res) => {
+    const email = req.params.email;
     getUsers().then(users => {
-        const user = users.find(user => user.id.toString() === id.toString());
+        const user = users.find(user => user.email === email);
         if (user) {
             res.send(user);
         } else {
@@ -67,8 +67,8 @@ expApp.get('/usuarios/:id', (req, res) => {
 });
 
 expApp.post('/usuarios', (req, res) => {
-    const {email, id, name, password, } = req.body;
-    existsUser(id).then(exists => {
+    const {email, name, password, } = req.body;
+    existsUser(email).then(exists => {
         if (exists) {
             res.status(409)
             res.send('User already exists');
@@ -86,10 +86,6 @@ expApp.post('/usuarios', (req, res) => {
                         res.status(400)
                         res.send('Name must be over 3 characters and under 30');
                     }
-                    else if (id.length < 4 || id.length > 15) {
-                        res.status(400)
-                        res.send('Id must be over 4 characters and under 15');
-                    }
                     else if (email.length < 5 || email.length > 30 || !email.includes('@')) {
                         res.status(400)
                         res.send('Email must be over 5 characters and under 30 and contain @');
@@ -99,7 +95,7 @@ expApp.post('/usuarios', (req, res) => {
                         res.send('Password must be over 8 characters and under 30');
                     }
                     else {
-                        addUser(email, id, name, password).then( () => {
+                        addUser(email, name, password).then( () => {
                             res.status(200);
                             res.send('User added');
                         });
