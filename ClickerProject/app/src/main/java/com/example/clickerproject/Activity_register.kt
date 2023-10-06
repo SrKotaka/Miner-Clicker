@@ -58,7 +58,7 @@ class Activity_register : AppCompatActivity() {
                         // Registration failed, show an error message
                         Toast.makeText(
                             applicationContext,
-                            "Seu registro não funcionou, por favor tente novamente",
+                            "Seu registro não funcionou, por favor tente novamente: ${response.message()}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
