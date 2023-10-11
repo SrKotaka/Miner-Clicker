@@ -4,13 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class Activity_login : AppCompatActivity() {
@@ -19,19 +13,18 @@ class Activity_login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
     }
 
+    fun loginInDataBase(view: View) {
+
+    }
+
     fun goToRegister(view: View) {
         try {
-            val register = Intent(this@Activity_login, Activity_register::class.java)
-            startActivity(register)
+            val goToRegister = Intent(this@Activity_login, Activity_register::class.java)
+            startActivity(goToRegister)
         }
         catch (e: Exception){
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
-
-    fun loginInDataBase(view: View) {
-
-    }
-
 
 }
