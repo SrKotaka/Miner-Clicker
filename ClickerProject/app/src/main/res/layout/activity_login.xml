@@ -16,7 +16,7 @@
             android:layout_marginTop="150dp"
     />
     <EditText
-            android:id="@+id/editTextLoginEmail"
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -27,7 +27,7 @@
             android:layout_marginRight="20dp" />
 
     <EditText
-            android:id="@+id/editTextLoginPassword"
+            android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"

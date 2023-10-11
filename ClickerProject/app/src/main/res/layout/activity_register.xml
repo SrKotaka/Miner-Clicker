@@ -18,7 +18,7 @@
     />
 
     <EditText
-            android:id="@+id/editTextRegisterName"
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome"
@@ -28,7 +28,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
     <EditText
-            android:id="@+id/editTextRegisterEmail"
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -38,7 +38,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
     <EditText
-            android:id="@+id/editTextRegisterPassword"
+            android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"

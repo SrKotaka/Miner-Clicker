@@ -32,53 +32,37 @@ class Activity_register : AppCompatActivity() {
     }
 
     fun registerInDataBase(view: View) {
-        val nome = findViewById<EditText>(R.id.editTextRegisterName).text.toString()
-        val email = findViewById<EditText>(R.id.editTextRegisterEmail).text.toString()
-        val senha = findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
-
-        if (nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
+        try {
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.137.48:3000/usuarios/") // Replace with your API URL
+                .baseUrl("https://localhost:3000/usuarios")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            val apiService = retrofit.create(ApiService::class.java)
+            val api = retrofit.create(ApiService::class.java)
 
-            val userData = UserData(email, nome, senha) // Create UserData object
+            val email = findViewById<EditText>(R.id.editTextEmail).text.toString()
+            val nome = findViewById<EditText>(R.id.editTextName).text.toString()
+            val senha = findViewById<EditText>(R.id.editTextPassword).text.toString()
 
-            val call = apiService.registerUser(userData)
+            val userData = UserData(email, nome, senha)
 
-            call.enqueue(object : Callback<String> {
+            api.registerUser(userData).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
-                        // Registration was successful, navigate to MainActivity
-                        val game = Intent(this@Activity_register, MainActivity::class.java)
-                        startActivity(game)
+                        Toast.makeText(applicationContext, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
+                        val main = Intent(this@Activity_register, MainActivity::class.java)
+                        startActivity(main)
                     } else {
-                        // Registration failed, show an error message
-                        Toast.makeText(
-                            applicationContext,
-                            "Seu registro não funcionou, por favor tente novamente: ${response.message()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(applicationContext, "Erro ao cadastrar usuário!", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    // Request failed, show an error message
-                    Toast.makeText(
-                        applicationContext,
-                        "${t.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(applicationContext, "Erro ao cadastrar usuário!", Toast.LENGTH_SHORT).show()
                 }
             })
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "Preencha todos os campos acima",
-                Toast.LENGTH_SHORT
-            ).show()
+        } catch (e: Exception) {
+            Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
