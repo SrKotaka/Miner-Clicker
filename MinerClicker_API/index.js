@@ -19,21 +19,25 @@ const usersCol = collection(db, 'usuarios');
 
 const getUsers = async () => {
     const data = await getDocs(usersCol);
-    return data.docs.map(doc => doc.data());
+    const users = [];
+    data.docs.forEach(doc => {
+        users.push(doc.data());
+    });
+    return users;
 }
 const existsUserEmail = async (email) => {
-    const data = await getDocs(usersCol);
-    let exists = false;
-    data.docs.forEach(doc => {
-        if (doc.data().email === email) {
-            exists = true;
-        }
-    })
-    return exists;
+    const users = await getUsers();
+    return users.some(user => user.email === email);
 }
 const addUser = async (email, name, password) => {
-    await setDoc(doc(db, "usuarios", email), {email, name, password});
+    await setDoc(doc(usersCol, email), {
+        email: email,
+        name: name,
+        password: password
+    });
 }
+
+
 
 const expApp = express();
 const port = 3000;
@@ -59,13 +63,15 @@ expApp.get('/usuarios/:email', (req, res) => {
 });
 
 expApp.post('/usuarios', (req, res) => {
-    const user = req.body;
-    if (user.email && user.name && user.password) {
-        existsUserEmail(user.email).then(exists => {
+    const email = req.body.email;
+    const name = req.body.name;
+    const password = req.body.password;
+    if (email && name && password) {
+        existsUserEmail(email).then(exists => {
             if (exists) {
-                res.status(400).send('400 Bad Request');
+                res.status(409).send('409 Conflict');
             } else {
-                addUser(user.email, user.name, user.password).then(() => {
+                addUser(email, name, password).then(() => {
                     res.status(201).send('201 Created');
                 });
             }
