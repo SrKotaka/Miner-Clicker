@@ -50,7 +50,6 @@
             android:layout_marginRight="20dp" />
 
     <Button
-            android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrar"
@@ -61,7 +60,6 @@
             android:layout_marginRight="20dp"
             android:backgroundTint="@android:color/holo_green_dark"/>
     <TextView
-            android:id="@+id/textViewLoginLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Já tem uma conta? Clique aqui"
