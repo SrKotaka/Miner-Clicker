@@ -26,5 +26,4 @@ class Activity_login : AppCompatActivity() {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
