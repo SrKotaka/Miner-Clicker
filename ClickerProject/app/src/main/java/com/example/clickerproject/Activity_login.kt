@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 
 
-
 class Activity_login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

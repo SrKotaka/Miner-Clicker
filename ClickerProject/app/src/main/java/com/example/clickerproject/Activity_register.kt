@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 
+
 class Activity_register : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,5 +27,3 @@ class Activity_register : AppCompatActivity() {
         }
     }
 }
-
-
