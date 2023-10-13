@@ -32,6 +32,8 @@ android {
     }
 }
 
+val ktor_version: String by project
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -42,5 +44,4 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     //daqui pra baixo eu adicionei
-
 }
