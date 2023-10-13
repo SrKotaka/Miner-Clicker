@@ -37,8 +37,6 @@ const addUser = async (email, name, password) => {
     });
 }
 
-
-
 const expApp = express();
 const port = 3000;
 
