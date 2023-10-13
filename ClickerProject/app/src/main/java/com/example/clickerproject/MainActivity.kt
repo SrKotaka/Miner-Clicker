@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity() {
             hitSound.start()
             hitSoundMap[hitSound.hashCode()] = hitSound
 
-
-
             updateUI()
         }
 
@@ -111,71 +109,85 @@ class MainActivity : AppCompatActivity() {
                         minerioImageView.tag = "minerio2"
                         currentMinerioState = "minerio2"
                     }
+
                     "minerio2" -> {
                         minerioImageView.setImageResource(R.drawable.minerio3)
                         minerioImageView.tag = "minerio3"
                         currentMinerioState = "minerio3"
                     }
+
                     "minerio3" -> {
                         minerioImageView.setImageResource(R.drawable.minerio4)
                         minerioImageView.tag = "minerio4"
                         currentMinerioState = "minerio4"
                     }
+
                     "minerio4" -> {
                         minerioImageView.setImageResource(R.drawable.minerio5)
                         minerioImageView.tag = "minerio5"
                         currentMinerioState = "minerio5"
                     }
+
                     "minerio5" -> {
                         minerioImageView.setImageResource(R.drawable.minerio6)
                         minerioImageView.tag = "minerio6"
                         currentMinerioState = "minerio6"
                     }
+
                     "minerio6" -> {
                         minerioImageView.setImageResource(R.drawable.minerio7)
                         minerioImageView.tag = "minerio7"
                         currentMinerioState = "minerio7"
                     }
+
                     "minerio7" -> {
                         minerioImageView.setImageResource(R.drawable.minerio8)
                         minerioImageView.tag = "minerio8"
                         currentMinerioState = "minerio8"
                     }
+
                     "minerio8" -> {
                         minerioImageView.setImageResource(R.drawable.minerio9)
                         minerioImageView.tag = "minerio9"
                         currentMinerioState = "minerio9"
                     }
+
                     "minerio9" -> {
                         minerioImageView.setImageResource(R.drawable.minerio10)
                         minerioImageView.tag = "minerio10"
                         currentMinerioState = "minerio10"
                         minerioImageView.setImageResource(R.drawable.minerio11)
                     }
+
                     "minerio10" -> {
                         minerioImageView.tag = "minerio11"
                         currentMinerioState = "minerio11"
                     }
+
                     "minerio11" -> {
                         minerioImageView.setImageResource(R.drawable.minerio12)
                         minerioImageView.tag = "minerio12"
                         currentMinerioState = "minerio12"
                     }
+
                     "minerio12" -> {
                         minerioImageView.setImageResource(R.drawable.minerio13)
                         minerioImageView.tag = "minerio13"
                         currentMinerioState = "minerio13"
                     }
+
                     "minerio13" -> {
                         minerioImageView.setImageResource(R.drawable.minerio14)
                         minerioImageView.tag = "minerio14"
                         currentMinerioState = "minerio14"
                     }
+
                     "minerio14" -> {
                         minerioImageView.setImageResource(R.drawable.minerio15)
                         minerioImageView.tag = "minerio15"
                         currentMinerioState = "minerio15"
                     }
+
                     "minerio15" -> {
                         minerioImageView.setImageResource(R.drawable.minerio16)
                         minerioImageView.tag = "minerio16"
@@ -196,7 +208,6 @@ class MainActivity : AppCompatActivity() {
                 upgradeButton3.text = "Upgrade Cost : ${formatDoubleNumber(upgrade3Cost)}"
                 updateUI()
             }
-
         }
 
 
@@ -257,14 +268,10 @@ class MainActivity : AppCompatActivity() {
     private fun updateUI() {
         findViewById<TextView>(R.id.coins).text = "Coins : ${formatDoubleNumber(coins)}"
         coinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(coinsPerSecond)}"
-        upgrade1CoinsPerSecondTextView.text =
-            "Coins per second : ${formatDoubleNumber(upgrade1CoinsPerSecond)}"
-        upgrade4CoinsPerSecondTextView.text =
-            "Coins per second : ${formatDoubleNumber(upgrade4CoinsPerSecond)}"
-        upgrade5CoinsPerSecondTextView.text =
-            "Coins per second : ${formatDoubleNumber(upgrade5CoinsPerSecond)}"
-        upgrade6CoinsPerSecondTextView.text =
-            "Coins per second : ${formatDoubleNumber(upgrade6CoinsPerSecond)}"
+        upgrade1CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade1CoinsPerSecond)}"
+        upgrade4CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade4CoinsPerSecond)}"
+        upgrade5CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade5CoinsPerSecond)}"
+        upgrade6CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade6CoinsPerSecond)}"
         val soulsCoinsTextView = findViewById<TextView>(R.id.souls_coins)
         soulsCoinsTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoins)}"
 
@@ -320,11 +327,10 @@ class MainActivity : AppCompatActivity() {
             upgradeButton6.setBackgroundColor(Color.GRAY)
         }
         val resetButton: Button = findViewById(R.id.reset_game)
-        if(soulscoins >= 1) {
+        if (soulscoins >= 1) {
             resetButton.isEnabled = true
             resetButton.setBackgroundColor(Color.WHITE)
-        }
-        else{
+        } else {
             resetButton.isEnabled = false
             resetButton.setBackgroundColor(Color.GRAY)
         }
@@ -362,7 +368,6 @@ class MainActivity : AppCompatActivity() {
         upgrade6Cost = 1000000.0
         powerClick = 1.0
         soulscoins = 0.0
-
 
         updateUI()
 
@@ -501,14 +506,12 @@ class MainActivity : AppCompatActivity() {
             "minerio16" -> minerioImageView.setImageResource(R.drawable.minerio16)
         }
 
-
         minerioImageView.tag = currentMinerioState
 
         updateUI()
 
         handler.removeCallbacks(updateCoinsPerSecondTask)
         handler.post(updateCoinsPerSecondTask)
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -516,7 +519,6 @@ class MainActivity : AppCompatActivity() {
 
         outState.putDouble("coins", coins)
         outState.putDouble("coinsPerSecond", coinsPerSecond)
-
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -534,11 +536,11 @@ class MainActivity : AppCompatActivity() {
         try {
             val achivements = Intent(this@MainActivity, Activity_achivements::class.java)
             startActivity(achivements)
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
+
     fun goToRank(view: View) {
         try {
             val rank = Intent(this@MainActivity, Activity_rank::class.java)

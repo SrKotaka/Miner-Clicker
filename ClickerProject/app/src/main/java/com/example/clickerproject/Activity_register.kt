@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 
-
 class Activity_register : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +21,7 @@ class Activity_register : AppCompatActivity() {
         try {
             val goToLogin = Intent(this@Activity_register, Activity_login::class.java)
             startActivity(goToLogin)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
