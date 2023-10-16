@@ -70,7 +70,7 @@ expApp.post('/usuarios', (req, res) => {
                 res.status(409).send('409 Conflict');
             } else {
                 addUser(email, name, password).then(() => {
-                    res.status(201).send('201 Created');
+                    res.send({response: '201 Created'});
                 });
             }
         });
