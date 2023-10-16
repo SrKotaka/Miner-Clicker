@@ -6,13 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-//daqui pra baixo eu que coloquei
+//From here down I put it
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
-
 
 class Activity_register : AppCompatActivity() {
 
@@ -37,7 +36,7 @@ class Activity_register : AppCompatActivity() {
         request.put("password", password)
 
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.97:3000/usuarios" // Replace with your API URL
+        val url = "http://192.168.0.97:3000/usuarios"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, request,
