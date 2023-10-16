@@ -22,11 +22,10 @@ class Activity_register : AppCompatActivity() {
     }
 
     fun registerInDataBase(view: View) {
-        val email = findViewById<TextView>(R.id.editTextEmail).text.toString() // Replace with your EditText IDs
-        val name = findViewById<TextView>(R.id.editTextName).text.toString() // Replace with your EditText IDs
-        val password = findViewById<TextView>(R.id.editTextPassword).text.toString() // Replace with your EditText IDs
+        val email = findViewById<TextView>(R.id.editTextEmail).text.toString()
+        val name = findViewById<TextView>(R.id.editTextName).text.toString()
+        val password = findViewById<TextView>(R.id.editTextPassword).text.toString()
 
-        // Check if any field is empty
         if (email.isEmpty() || name.isEmpty() || password.isEmpty()) {
             Toast.makeText(applicationContext, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
@@ -38,21 +37,18 @@ class Activity_register : AppCompatActivity() {
         request.put("password", password)
 
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.156.83:3000/usuarios" // Replace with your API URL
+        val url = "http://192.168.0.97:3000/usuarios" // Replace with your API URL
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, request,
             { response ->
-                // Registration successful, redirect to the login page
                 val goToGame = Intent(this, MainActivity::class.java)
                 startActivity(goToGame)
             },
             { error ->
-                // Registration failed
                 Toast.makeText(applicationContext, "Registration failed: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         )
-
         queue.add(jsonObjectRequest)
     }
 
