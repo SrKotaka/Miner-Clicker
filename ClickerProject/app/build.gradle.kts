@@ -32,8 +32,6 @@ android {
     }
 }
 
-val ktor_version: String by project
-
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
