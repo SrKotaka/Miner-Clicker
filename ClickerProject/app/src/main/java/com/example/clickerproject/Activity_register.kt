@@ -37,7 +37,7 @@ class Activity_register : AppCompatActivity() {
         request.put("password", password)
 
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.97:3000/usuarios"
+        val url = "http://192.168.130.80:3000/usuarios"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, request,
