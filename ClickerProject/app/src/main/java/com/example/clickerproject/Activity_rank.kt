@@ -19,18 +19,23 @@ class Activity_rank : AppCompatActivity() {
 
         val rankTextView = findViewById<TextView>(R.id.rank)
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.130.80:3000/usuarios"
+        val url = "http://192.168.83.80:3000/usuarios"
 
-        val jsonObjectRequest = JsonArrayRequest(
+        val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
                 try {
-                    val jsonArray = response.getJSONArray(0)
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONArray(i).getJSONObject(0)
-                        val rank = jsonObject.getString("rank")
-                        rankTextView.text = rank
+                    val users = StringBuilder()
+
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        val email = jsonObject.getString("email")
+                        val name = jsonObject.getString("name")
+
+                        users.append("Name: $name\n, Email: $email, Coins: ")
                     }
+
+                    rankTextView.text = users.toString()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -39,7 +44,7 @@ class Activity_rank : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Error to pull database: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         )
-        queue.add(jsonObjectRequest)
+        queue.add(jsonArrayRequest)
     }
 
     fun goToMain(view: View) {
