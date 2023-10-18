@@ -210,7 +210,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
         upgradeButton4.setOnClickListener {
             if (coins >= upgrade4Cost) {
