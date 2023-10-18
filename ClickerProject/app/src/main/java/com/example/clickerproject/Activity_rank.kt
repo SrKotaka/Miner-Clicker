@@ -31,8 +31,9 @@ class Activity_rank : AppCompatActivity() {
                         val jsonObject = response.getJSONObject(i)
                         val email = jsonObject.getString("email")
                         val name = jsonObject.getString("name")
+                        val coins = jsonObject.getString("coins")
 
-                        users.append("Name: $name, Email: $email, Coins: \n")
+                        users.append("Name: $name, Email: $email, Coins: $coins\n")
                     }
 
                     rankTextView.text = users.toString()

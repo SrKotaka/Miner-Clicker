@@ -24,6 +24,7 @@ class Activity_register : AppCompatActivity() {
         val email = findViewById<TextView>(R.id.editTextEmail).text.toString()
         val name = findViewById<TextView>(R.id.editTextName).text.toString()
         val password = findViewById<TextView>(R.id.editTextPassword).text.toString()
+        val coins = 0.0
 
         if (email.isEmpty() || name.isEmpty() || password.isEmpty()) {
             Toast.makeText(applicationContext, "Please fill in all fields", Toast.LENGTH_SHORT).show()
@@ -34,6 +35,7 @@ class Activity_register : AppCompatActivity() {
         request.put("email", email)
         request.put("name", name)
         request.put("password", password)
+        request.put("coins", coins)
 
         val queue: RequestQueue = Volley.newRequestQueue(this)
         val url = "http://192.168.83.80:3000/usuarios"

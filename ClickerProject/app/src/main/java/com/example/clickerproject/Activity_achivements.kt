@@ -13,54 +13,36 @@ class Activity_achivements : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_achivements)
 
-        val coins = intent.getDoubleExtra("coin", 0.0)
+        val coins = intent.getDoubleExtra("coins", 0.0)
 
         val achivement1 = findViewById<ImageView>(R.id.achivement1)
         if (coins >= 1000) {
             achivement1.setBackgroundResource(R.drawable.conclued)
-        }
-        else {
-            achivement1.setBackgroundColor(Color.GRAY)
         }
 
         val achivement2 = findViewById<ImageView>(R.id.achivement2)
         if (coins >= 10000) {
             achivement2.setBackgroundResource(R.drawable.conclued)
         }
-        else {
-            achivement2.setBackgroundColor(Color.GRAY)
-        }
 
         val achivement3 = findViewById<ImageView>(R.id.achivement3)
         if (coins >= 100000) {
             achivement3.setBackgroundResource(R.drawable.conclued)
-        }
-        else {
-            achivement3.setBackgroundColor(Color.GRAY)
         }
 
         val achivement4 = findViewById<ImageView>(R.id.achivement4)
         if (coins >= 1000000) {
             achivement4.setBackgroundResource(R.drawable.conclued)
         }
-        else {
-            achivement4.setBackgroundColor(Color.GRAY)
-        }
 
         val achivement5 = findViewById<ImageView>(R.id.achivement5)
         if (coins >= 10000000) {
             achivement5.setBackgroundResource(R.drawable.conclued)
         }
-        else {
-            achivement5.setBackgroundColor(Color.GRAY)
-        }
 
         val achivement6 = findViewById<ImageView>(R.id.achivement6)
         if (coins >= 100000000) {
             achivement6.setBackgroundResource(R.drawable.conclued)
-        }
-        else {
-            achivement6.setBackgroundColor(Color.GRAY)
         }
     }
 

@@ -534,7 +534,7 @@ class MainActivity : AppCompatActivity() {
     fun goToAchivements(view: View) {
         try {
             val achievements = Intent(this@MainActivity, Activity_achivements::class.java)
-            achievements.putExtra("coin", coins)
+            achievements.putExtra("coins", coins)
             startActivity(achievements)
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
