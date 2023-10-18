@@ -18,7 +18,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import kotlin.random.Random
@@ -276,17 +275,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createSnowfall() {
-        val container = findViewById<LinearLayout>(R.id.container) // Onde "container" é o ID do layout onde você quer que os flocos caiam.
-
-        for (i in 0 until 20) { // Número de flocos de neve
+        val container = findViewById<LinearLayout>(R.id.containerNeve)
+        for (i in 0 until 20) {
             val snowflake = ImageView(this)
-            snowflake.setImageResource(R.drawable.floco) // Substitua "floco_de_neve" pelo nome da sua imagem de floco de neve.
+            snowflake.setImageResource(R.drawable.floco)
 
-            val randomX = Random.nextInt(0, container.width)
-            val randomY = Random.nextInt(0, container.height)
+            val randomX = Random.nextInt(0, 1000)
+            val randomY = Random.nextInt(0,1000)
 
             val animation = TranslateAnimation(0f, 0f, 0f, container.height.toFloat() - randomY)
-            animation.duration = 5000 // Duração da animação (5 segundos)
+            animation.duration = 5000
             animation.repeatCount = Animation.INFINITE
             animation.interpolator = android.view.animation.LinearInterpolator()
 
