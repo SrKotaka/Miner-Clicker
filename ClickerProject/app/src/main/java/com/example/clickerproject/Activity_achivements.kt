@@ -13,7 +13,7 @@ class Activity_achivements : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_achivements)
 
-        val coins = intent.getIntExtra("coin", 0)
+        val coins = intent.getDoubleExtra("coin", 0.0)
         val achivement1 = findViewById<ImageView>(R.id.achivement1)
         if (coins >= 1000) {
             achivement1.setBackgroundColor(Color.WHITE)
