@@ -12,9 +12,16 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var coinsPerSecondTextView: TextView
@@ -246,6 +253,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        if (isNatal()) {
+            createSnowfall()
+        }
+
         updateUI()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.musica)
@@ -261,6 +272,30 @@ class MainActivity : AppCompatActivity() {
             coins += coinsPerSecond
             updateUI()
             handler.postDelayed(this, 1000)
+        }
+    }
+
+    private fun createSnowfall() {
+        val container = findViewById<LinearLayout>(R.id.container) // Onde "container" é o ID do layout onde você quer que os flocos caiam.
+
+        for (i in 0 until 20) { // Número de flocos de neve
+            val snowflake = ImageView(this)
+            snowflake.setImageResource(R.drawable.floco) // Substitua "floco_de_neve" pelo nome da sua imagem de floco de neve.
+
+            val randomX = Random.nextInt(0, container.width)
+            val randomY = Random.nextInt(0, container.height)
+
+            val animation = TranslateAnimation(0f, 0f, 0f, container.height.toFloat() - randomY)
+            animation.duration = 5000 // Duração da animação (5 segundos)
+            animation.repeatCount = Animation.INFINITE
+            animation.interpolator = android.view.animation.LinearInterpolator()
+
+            snowflake.x = randomX.toFloat()
+            snowflake.y = randomY.toFloat()
+
+            container.addView(snowflake)
+
+            snowflake.startAnimation(animation)
         }
     }
 
@@ -548,5 +583,19 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isNatal(): Boolean {
+        val calendario = Calendar.getInstance()
+        val formato = SimpleDateFormat("dd-MM-yyyy")
+        val dataAtual = formato.format(calendario.time)
+
+        // Verifique se a data atual é 25 de dezembro
+        return dataAtual == "18-10-${getAnoAtual()}"
+    }
+
+    private fun getAnoAtual(): Int {
+        val calendario = Calendar.getInstance()
+        return calendario.get(Calendar.YEAR)
     }
 }
