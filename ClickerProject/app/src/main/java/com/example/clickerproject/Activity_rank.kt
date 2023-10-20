@@ -32,7 +32,7 @@ class Activity_rank : AppCompatActivity() {
                         val name = jsonObject.getString("name")
                         val coins = jsonObject.getString("coins")
 
-                        users.append("Name: $name, Coins: $coins\n")
+                        users.append("$name tem $coins coins\n")
                     }
 
                     rankTextView.text = users.toString()
