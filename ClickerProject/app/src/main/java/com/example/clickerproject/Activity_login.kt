@@ -29,7 +29,7 @@ class Activity_login : AppCompatActivity() {
         }
 
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.204.118:3000/usuarios/$email"
+        val url = "http://192.168.16.127:3000/usuarios/$email"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -37,6 +37,7 @@ class Activity_login : AppCompatActivity() {
                 if(password == response.getString("password"))
                 {
                     val goToGame = Intent(this, MainActivity::class.java)
+                    goToGame.putExtra("email", email)
                     startActivity(goToGame)
                 } else {
                     Toast.makeText(applicationContext, "Wrong password", Toast.LENGTH_SHORT).show()

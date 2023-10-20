@@ -20,6 +20,12 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -253,7 +259,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (isNatal()) {
-            //createSnowfall()
+            createSnowfall()
         }
 
         updateUI()
@@ -264,6 +270,7 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer?.start()
 
         handler.post(updateCoinsPerSecondTask)
+        handler.post(updateAPIperMinute)
     }
 
     private val updateCoinsPerSecondTask = object : Runnable {
@@ -273,9 +280,36 @@ class MainActivity : AppCompatActivity() {
             handler.postDelayed(this, 1000)
         }
     }
+    private val updateAPIperMinute = object : Runnable {
+        override fun run() {
+            updateAPI()
+            handler.postDelayed(this, 10000) //5 minutes
+        }
+    }
 
     private fun createSnowfall() {
 
+    }
+
+    private fun updateAPI(){
+        val email = intent.getStringExtra("email")
+        val queue: RequestQueue = Volley.newRequestQueue(this)
+        val url = "http://192.168.16.127:3000/usuarios/$email"
+
+        val request = JSONObject()
+        request.put("email", email)
+        request.put("coins", coins)
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.PUT, url, request,
+            { response ->
+                Toast.makeText(applicationContext, "Coins updated", Toast.LENGTH_SHORT).show()
+            },
+            { error ->
+
+            }
+        )
+        queue.add(jsonObjectRequest)
     }
 
     private fun updateUI() {

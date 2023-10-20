@@ -19,7 +19,7 @@ class Activity_rank : AppCompatActivity() {
 
         val rankTextView = findViewById<TextView>(R.id.rank)
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.204.118:3000/usuarios"
+        val url = "http://192.168.16.127:3000/usuarios"
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -29,11 +29,10 @@ class Activity_rank : AppCompatActivity() {
 
                     for (i in 0 until response.length()) {
                         val jsonObject = response.getJSONObject(i)
-                        val email = jsonObject.getString("email")
                         val name = jsonObject.getString("name")
                         val coins = jsonObject.getString("coins")
 
-                        users.append("Name: $name, Email: $email, Coins: $coins\n")
+                        users.append("Name: $name, Coins: $coins\n")
                     }
 
                     rankTextView.text = users.toString()

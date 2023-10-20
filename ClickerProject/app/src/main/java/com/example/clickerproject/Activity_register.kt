@@ -38,12 +38,13 @@ class Activity_register : AppCompatActivity() {
         request.put("coins", coins)
 
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.204.118:3000/usuarios"
+        val url = "http://192.168.16.127:3000/usuarios"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, request,
             { response ->
                 val goToGame = Intent(this, MainActivity::class.java)
+                goToGame.putExtra("email", email)
                 startActivity(goToGame)
             },
             { error ->

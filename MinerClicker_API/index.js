@@ -29,9 +29,10 @@ const existsUserEmail = async (email) => {
     const users = await getUsers();
     return users.some(user => user.email === email);
 }
-const addUser = async (email, name, password) => {
+const addUser = async (email, coins, name, password) => {
     await setDoc(doc(usersCol, email), {
         email: email,
+        coins: coins,
         name: name,
         password: password
     });
@@ -64,12 +65,13 @@ expApp.post('/usuarios', (req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
-    if (email && name && password) {
+    const coins = req.body.coins;
+    if (email && name && password && coins) {
         existsUserEmail(email).then(exists => {
             if (exists) {
                 res.status(409).send('409 Conflict');
             } else {
-                addUser(email, name, password).then(() => {
+                addUser(email, coins, name, password).then(() => {
                     res.send({response: '201 Created'});
                 });
             }
@@ -77,6 +79,32 @@ expApp.post('/usuarios', (req, res) => {
     } else {
         res.status(400).send('400 Bad Request');
     }
+});
+
+expApp.put('/usuarios/:email', (req, res) => {
+    const email = req.params.email;
+    const coins = req.body.coins;
+
+    getUsers().then(users => {
+        const user = users.find(user => user.email === email);
+        if (user) {
+            if (email && coins) {
+                existsUserEmail(email).then(exists => {
+                    if (exists) {
+                        addUser(email, coins, user.name, user.password).then(() => {
+                            res.send({response: '200 OK'});
+                        });
+                    } else {
+                        res.status(404).send('404 Not Found');
+                    }
+                });
+            } else {
+                res.status(400).send('400 Bad Request');
+            }
+        } else {
+            res.status(404).send('404 Not Found');
+        }
+    });
 });
 
 expApp.use((req, res) => {
