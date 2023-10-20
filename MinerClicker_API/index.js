@@ -66,12 +66,14 @@ expApp.post('/usuarios', (req, res) => {
     const name = req.body.name;
     const password = req.body.password;
     const coins = req.body.coins;
-    if (email && name && password && coins) {
+
+    if (email && name && password) {
         existsUserEmail(email).then(exists => {
             if (exists) {
                 res.status(409).send('409 Conflict');
             } else {
                 addUser(email, coins, name, password).then(() => {
+                    console.log("tchau");
                     res.send({response: '201 Created'});
                 });
             }

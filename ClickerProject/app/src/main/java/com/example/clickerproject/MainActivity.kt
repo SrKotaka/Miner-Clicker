@@ -294,7 +294,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateAPI(){
         val email = intent.getStringExtra("email")
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.16.127:3000/usuarios/$email"
+        val url = "http://192.168.184.101:3000/usuarios/$email"
 
         val request = JSONObject()
         request.put("email", email)
@@ -464,119 +464,6 @@ class MainActivity : AppCompatActivity() {
             number < 1_000_000_000_000_000 -> String.format("%.1fT", number / 1_000_000_000_000.0)
             else -> String.format("%.1e", number)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        handler.removeCallbacks(updateCoinsPerSecondTask)
-        hitSoundMap.values.forEach {
-            it.release()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        val prefs = getSharedPreferences("game_prefs", Context.MODE_PRIVATE)
-        val editor = prefs.edit()
-        editor.putFloat("coins", coins.toFloat())
-        editor.putFloat("coinsPerSecond", coinsPerSecond.toFloat())
-        editor.putFloat("upgrade1CoinsPerSecond", upgrade1CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade4CoinsPerSecond", upgrade4CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade4CoinsPerSecond", upgrade5CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade4CoinsPerSecond", upgrade6CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade1Cost", upgrade1Cost.toFloat())
-        editor.putFloat("upgrade2Cost", upgrade2Cost.toFloat())
-        editor.putFloat("upgrade3Cost", upgrade3Cost.toFloat())
-        editor.putFloat("upgrade4Cost", upgrade4Cost.toFloat())
-        editor.putFloat("upgrade5Cost", upgrade5Cost.toFloat())
-        editor.putFloat("upgrade6Cost", upgrade6Cost.toFloat())
-        editor.putString("currentMinerioState", currentMinerioState)
-        editor.apply()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val prefs = getSharedPreferences("game_prefs", Context.MODE_PRIVATE)
-        coins = prefs.getFloat("coins", 0.0f).toDouble()
-        coinsPerSecond = prefs.getFloat("coinsPerSecond", 0.0f).toDouble()
-        upgrade1CoinsPerSecond = prefs.getFloat("upgrade1CoinsPerSecond", 2.0f).toDouble()
-        upgrade4CoinsPerSecond = prefs.getFloat("upgrade4CoinsPerSecond", 100.0f).toDouble()
-        upgrade5CoinsPerSecond = prefs.getFloat("upgrade5CoinsPerSecond", 25000.0f).toDouble()
-        upgrade6CoinsPerSecond = prefs.getFloat("upgrade6CoinsPerSecond", 100000.0f).toDouble()
-        upgrade1Cost = prefs.getFloat("upgrade1Cost", 5.0f).toDouble()
-        upgrade2Cost = prefs.getFloat("upgrade2Cost", 50.0f).toDouble()
-        upgrade3Cost = prefs.getFloat("upgrade3Cost", 2.0f).toDouble()
-        upgrade4Cost = prefs.getFloat("upgrade4Cost", 50000.0f).toDouble()
-        upgrade5Cost = prefs.getFloat("upgrade5Cost", 250000.0f).toDouble()
-        upgrade6Cost = prefs.getFloat("upgrade6Cost", 1000000.0f).toDouble()
-        currentMinerioState = prefs.getString("currentMinerioState", "minerio1") ?: "minerio1"
-
-        val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
-        upgradeButton.text = "Upgrade Cost : ${formatDoubleNumber(upgrade1Cost)}"
-
-        val upgradeButton2: Button = findViewById(R.id.btn_upgrade2)
-        upgradeButton2.text = "Upgrade Cost : ${formatDoubleNumber(upgrade2Cost)}"
-
-        val upgradeButton3: Button = findViewById(R.id.btn_upgrade3)
-        upgradeButton3.text = "Upgrade Cost : ${formatDoubleNumber(upgrade3Cost)}"
-
-        val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
-        upgradeButton4.text = "Upgrade Cost : ${formatDoubleNumber(upgrade4Cost)}"
-
-        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
-        upgradeButton5.text = "Upgrade Cost : ${formatDoubleNumber(upgrade5Cost)}"
-
-        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
-        upgradeButton6.text = "Upgrade Cost : ${formatDoubleNumber(upgrade6Cost)}"
-
-        val minerioImageView: ImageView = findViewById(R.id.minerio1)
-
-        when (currentMinerioState) {
-            "minerio1" -> minerioImageView.setImageResource(R.drawable.minerio1)
-            "minerio2" -> minerioImageView.setImageResource(R.drawable.minerio2)
-            "minerio3" -> minerioImageView.setImageResource(R.drawable.minerio3)
-            "minerio4" -> minerioImageView.setImageResource(R.drawable.minerio4)
-            "minerio5" -> minerioImageView.setImageResource(R.drawable.minerio5)
-            "minerio6" -> minerioImageView.setImageResource(R.drawable.minerio6)
-            "minerio7" -> minerioImageView.setImageResource(R.drawable.minerio7)
-            "minerio8" -> minerioImageView.setImageResource(R.drawable.minerio8)
-            "minerio9" -> minerioImageView.setImageResource(R.drawable.minerio9)
-            "minerio10" -> minerioImageView.setImageResource(R.drawable.minerio10)
-            "minerio11" -> minerioImageView.setImageResource(R.drawable.minerio11)
-            "minerio12" -> minerioImageView.setImageResource(R.drawable.minerio12)
-            "minerio13" -> minerioImageView.setImageResource(R.drawable.minerio13)
-            "minerio14" -> minerioImageView.setImageResource(R.drawable.minerio14)
-            "minerio15" -> minerioImageView.setImageResource(R.drawable.minerio15)
-            "minerio16" -> minerioImageView.setImageResource(R.drawable.minerio16)
-        }
-
-        minerioImageView.tag = currentMinerioState
-
-        updateUI()
-
-        handler.removeCallbacks(updateCoinsPerSecondTask)
-        handler.post(updateCoinsPerSecondTask)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putDouble("coins", coins)
-        outState.putDouble("coinsPerSecond", coinsPerSecond)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        coins = savedInstanceState.getDouble("coins", coins)
-        coinsPerSecond = savedInstanceState.getDouble("coinsPerSecond", coinsPerSecond)
-
-        updateUI()
-
-        handler.post(updateCoinsPerSecondTask)
     }
 
     fun goToAchivements(view: View) {
