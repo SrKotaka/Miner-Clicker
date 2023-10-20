@@ -43,8 +43,8 @@ class Activity_register : AppCompatActivity() {
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, request,
             { response ->
-            val goToGame = Intent(this, MainActivity::class.java)
-            startActivity(goToGame)
+                val goToGame = Intent(this, MainActivity::class.java)
+                startActivity(goToGame)
             },
             { error ->
                 Toast.makeText(applicationContext, "Registration failed: ${error.message}", Toast.LENGTH_SHORT).show()
