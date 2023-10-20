@@ -253,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (isNatal()) {
-            createSnowfall()
+            //createSnowfall()
         }
 
         updateUI()
@@ -275,26 +275,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createSnowfall() {
-        val container = findViewById<LinearLayout>(R.id.containerNeve)
-        for (i in 0 until 20) {
-            val snowflake = ImageView(this)
-            snowflake.setImageResource(R.drawable.floco)
 
-            val randomX = Random.nextInt(0, 1000)
-            val randomY = Random.nextInt(0,1000)
-
-            val animation = TranslateAnimation(0f, 0f, 0f, container.height.toFloat() - randomY)
-            animation.duration = 5000
-            animation.repeatCount = Animation.INFINITE
-            animation.interpolator = android.view.animation.LinearInterpolator()
-
-            snowflake.x = randomX.toFloat()
-            snowflake.y = randomY.toFloat()
-
-            container.addView(snowflake)
-
-            snowflake.startAnimation(animation)
-        }
     }
 
     private fun updateUI() {
