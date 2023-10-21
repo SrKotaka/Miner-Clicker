@@ -2,7 +2,6 @@ package com.example.clickerproject
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
@@ -12,21 +11,16 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
 import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
-import kotlin.random.Random
+import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
     private lateinit var coinsPerSecondTextView: TextView
@@ -104,6 +98,7 @@ class MainActivity : AppCompatActivity() {
 
         val upgrade2Multiplier = 2
         val upgradeButton2: Button = findViewById(R.id.btn_upgrade2)
+
         upgradeButton2.setOnClickListener {
             if (coins >= upgrade2Cost) {
                 coins -= upgrade2Cost
@@ -115,101 +110,27 @@ class MainActivity : AppCompatActivity() {
                 upgrade6CoinsPerSecond *= 2
                 powerClick *= 2
                 upgradeButton2.text = "Upgrade Cost : ${formatDoubleNumber(upgrade2Cost)}"
-                when (minerioImageView.tag) {
-                    "minerio1" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio2)
-                        minerioImageView.tag = "minerio2"
-                        currentMinerioState = "minerio2"
-                    }
 
-                    "minerio2" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio3)
-                        minerioImageView.tag = "minerio3"
-                        currentMinerioState = "minerio3"
-                    }
+                val minerioImages = arrayOf(
+                    R.drawable.minerio2, R.drawable.minerio3, R.drawable.minerio4,
+                    R.drawable.minerio5, R.drawable.minerio6, R.drawable.minerio7,
+                    R.drawable.minerio8, R.drawable.minerio9, R.drawable.minerio10,
+                    R.drawable.minerio11, R.drawable.minerio12, R.drawable.minerio13,
+                    R.drawable.minerio14, R.drawable.minerio15, R.drawable.minerio16
+                )
 
-                    "minerio3" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio4)
-                        minerioImageView.tag = "minerio4"
-                        currentMinerioState = "minerio4"
-                    }
-
-                    "minerio4" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio5)
-                        minerioImageView.tag = "minerio5"
-                        currentMinerioState = "minerio5"
-                    }
-
-                    "minerio5" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio6)
-                        minerioImageView.tag = "minerio6"
-                        currentMinerioState = "minerio6"
-                    }
-
-                    "minerio6" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio7)
-                        minerioImageView.tag = "minerio7"
-                        currentMinerioState = "minerio7"
-                    }
-
-                    "minerio7" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio8)
-                        minerioImageView.tag = "minerio8"
-                        currentMinerioState = "minerio8"
-                    }
-
-                    "minerio8" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio9)
-                        minerioImageView.tag = "minerio9"
-                        currentMinerioState = "minerio9"
-                    }
-
-                    "minerio9" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio10)
-                        minerioImageView.tag = "minerio10"
-                        currentMinerioState = "minerio10"
-                        minerioImageView.setImageResource(R.drawable.minerio11)
-                    }
-
-                    "minerio10" -> {
-                        minerioImageView.tag = "minerio11"
-                        currentMinerioState = "minerio11"
-                    }
-
-                    "minerio11" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio12)
-                        minerioImageView.tag = "minerio12"
-                        currentMinerioState = "minerio12"
-                    }
-
-                    "minerio12" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio13)
-                        minerioImageView.tag = "minerio13"
-                        currentMinerioState = "minerio13"
-                    }
-
-                    "minerio13" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio14)
-                        minerioImageView.tag = "minerio14"
-                        currentMinerioState = "minerio14"
-                    }
-
-                    "minerio14" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio15)
-                        minerioImageView.tag = "minerio15"
-                        currentMinerioState = "minerio15"
-                    }
-
-                    "minerio15" -> {
-                        minerioImageView.setImageResource(R.drawable.minerio16)
-                        minerioImageView.tag = "minerio16"
-                        currentMinerioState = "minerio16"
+                if (minerioImageView.tag == "minerio1" && minerioImages.size > 0) {
+                    val nextMinerioIndex = minerioImages.indexOf(resources.getIdentifier(currentMinerioState, "drawable", packageName)) + 1
+                    if (nextMinerioIndex < minerioImages.size) {
+                        minerioImageView.setImageResource(minerioImages[nextMinerioIndex])
+                        minerioImageView.tag = "minerio" + (nextMinerioIndex + 1)
+                        currentMinerioState = "minerio" + (nextMinerioIndex + 1)
                     }
                 }
                 updateUI()
             }
+        }  //optimize
 
-        }
 
         val upgradeButton3: Button = findViewById(R.id.btn_upgrade3)
         upgradeButton3.setOnClickListener {
@@ -259,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (isNatal()) {
-            createSnowfall()
+            //createSnowfall()
         }
 
         updateUI()
@@ -279,26 +200,23 @@ class MainActivity : AppCompatActivity() {
             updateUI()
             handler.postDelayed(this, 1000)
         }
-    }
+    } //optimize
+
     private val updateAPIperMinute = object : Runnable {
         override fun run() {
             updateAPI()
-            handler.postDelayed(this, 10000) //5 minutes
+            handler.postDelayed(this, 10000) //10 seconds
         }
-    }
+    } //optimize
 
-    private fun createSnowfall() {
-
-    }
-
-    private fun updateAPI(){
+    private fun updateAPI() {
         val email = intent.getStringExtra("email")
-        val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.184.101:3000/usuarios/$email"
+        val url = "http://192.168.52.46:3000/usuarios/$email"
 
-        val request = JSONObject()
-        request.put("email", email)
-        request.put("coins", coins)
+        val request = JSONObject().apply {
+            put("email", email)
+            put("coins", coins)
+        }
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.PUT, url, request,
@@ -306,102 +224,77 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Coins updated", Toast.LENGTH_SHORT).show()
             },
             { error ->
-
+                Toast.makeText(applicationContext, "Error to update coins", Toast.LENGTH_SHORT).show()
             }
         )
-        queue.add(jsonObjectRequest)
-    }
+
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
+    } //optimize
+
+    private fun updateTextViewText(viewId: Int, text: String) {
+        findViewById<TextView>(viewId).text = text
+    } //optimize
+
+    private fun updateButtonState(button: Button, isEnabled: Boolean) {
+        button.isEnabled = isEnabled
+        button.setBackgroundColor(if (isEnabled) Color.WHITE else Color.GRAY)
+    } //optimize
+
+    private fun updateUpgradeButtons() {
+        val upgradeButtonIds = listOf(
+            R.id.btn_upgrade1, R.id.btn_upgrade2, R.id.btn_upgrade3,
+            R.id.btn_upgrade4, R.id.btn_upgrade5, R.id.btn_upgrade6
+        )
+
+        val upgradeCosts = listOf(
+            upgrade1Cost, upgrade2Cost, upgrade3Cost,
+            upgrade4Cost, upgrade5Cost, upgrade6Cost
+        )
+
+        for (i in 0 until upgradeButtonIds.size) {
+            val upgradeButton = findViewById<Button>(upgradeButtonIds[i])
+            updateButtonState(upgradeButton, coins >= upgradeCosts[i])
+        }
+    } //optimize
+
+    private fun updateResetButton() {
+        val resetButton: Button = findViewById(R.id.reset_game)
+        updateButtonState(resetButton, soulscoins >= 1)
+    } //optimize
 
     private fun updateUI() {
-        findViewById<TextView>(R.id.coins).text = "Coins : ${formatDoubleNumber(coins)}"
-        coinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(coinsPerSecond)}"
-        upgrade1CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade1CoinsPerSecond)}"
-        upgrade4CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade4CoinsPerSecond)}"
-        upgrade5CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade5CoinsPerSecond)}"
-        upgrade6CoinsPerSecondTextView.text = "Coins per second : ${formatDoubleNumber(upgrade6CoinsPerSecond)}"
-        val soulsCoinsTextView = findViewById<TextView>(R.id.souls_coins)
-        soulsCoinsTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoins)}"
+        updateTextViewText(R.id.coins, "Coins : ${formatDoubleNumber(coins)}")
+        updateTextViewText(R.id.coins_per_second, "Coins per second : ${formatDoubleNumber(coinsPerSecond)}")
+        updateTextViewText(R.id.upgrade1_coins_per_second, "Coins per second : ${formatDoubleNumber(upgrade1CoinsPerSecond)}")
+        updateTextViewText(R.id.upgrade4_coins_per_second, "Coins per second : ${formatDoubleNumber(upgrade4CoinsPerSecond)}")
+        updateTextViewText(R.id.upgrade5_coins_per_second, "Coins per second : ${formatDoubleNumber(upgrade5CoinsPerSecond)}")
+        updateTextViewText(R.id.upgrade6_coins_per_second, "Coins per second : ${formatDoubleNumber(upgrade6CoinsPerSecond)}")
+        updateTextViewText(R.id.souls_coins, "Souls Coins : ${formatDoubleNumber(soulscoins)}")
 
-        val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
-        if (coins >= upgrade1Cost) {
-            upgradeButton.isEnabled = true
-            upgradeButton.setBackgroundColor(Color.WHITE)
-        } else {
-            upgradeButton.isEnabled = false
-            upgradeButton.setBackgroundColor(Color.GRAY)
-        }
-
-        val upgradeButton2: Button = findViewById(R.id.btn_upgrade2)
-        if (coins >= upgrade2Cost) {
-            upgradeButton2.isEnabled = true
-            upgradeButton2.setBackgroundColor(Color.WHITE)
-        } else {
-            upgradeButton2.isEnabled = false
-            upgradeButton2.setBackgroundColor(Color.GRAY)
-        }
-
-        val upgradeButton3: Button = findViewById(R.id.btn_upgrade3)
-        if (coins >= upgrade3Cost) {
-            upgradeButton3.isEnabled = true
-            upgradeButton3.setBackgroundColor(Color.WHITE)
-        } else {
-            upgradeButton3.isEnabled = false
-            upgradeButton3.setBackgroundColor(Color.GRAY)
-        }
-
-        val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
-        if (coins >= upgrade4Cost) {
-            upgradeButton4.isEnabled = true
-            upgradeButton4.setBackgroundColor(Color.WHITE)
-        } else {
-            upgradeButton4.isEnabled = false
-            upgradeButton4.setBackgroundColor(Color.GRAY)
-        }
-        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
-        if (coins >= upgrade5Cost) {
-            upgradeButton5.isEnabled = true
-            upgradeButton5.setBackgroundColor(Color.WHITE)
-        } else {
-            upgradeButton5.isEnabled = false
-            upgradeButton5.setBackgroundColor(Color.GRAY)
-        }
-        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
-        if (coins >= upgrade6Cost) {
-            upgradeButton6.isEnabled = true
-            upgradeButton6.setBackgroundColor(Color.WHITE)
-        } else {
-            upgradeButton6.isEnabled = false
-            upgradeButton6.setBackgroundColor(Color.GRAY)
-        }
-        val resetButton: Button = findViewById(R.id.reset_game)
-        if (soulscoins >= 1) {
-            resetButton.isEnabled = true
-            resetButton.setBackgroundColor(Color.WHITE)
-        } else {
-            resetButton.isEnabled = false
-            resetButton.setBackgroundColor(Color.GRAY)
-        }
-    }
+        updateUpgradeButtons()
+        updateResetButton()
+    } //optimize
 
     private fun resetGame() {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle("Reset Game")
-        alertDialogBuilder.setMessage("Are you sure you want to reset the game? Your coins will be lost but your upgrades will increase by 10% per soul coin.")
-        alertDialogBuilder.setPositiveButton("Reset") { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss()
-            performGameReset()
-        }
-        alertDialogBuilder.setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss()
-        }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
-    }
+        AlertDialog.Builder(this)
+            .setTitle("Reset Game")
+            .setMessage("Are you sure you want to reset the game? Your coins will be lost but your upgrades will increase by 10% per soul coin.")
+            .setPositiveButton("Reset") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                performGameReset()
+            }
+            .setNegativeButton("Cancel") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .create()
+            .show()
+    } //optimize
 
     private fun performGameReset() {
+        val bonus = soulscoinshave * 1.1
+
         coins = 0.0
         soulscoinshave += soulscoins
-        var bonus = soulscoinshave * 1.1
         coinsPerSecond = 0.0
         upgrade1CoinsPerSecond = 2.0 * bonus
         upgrade4CoinsPerSecond = 100.0 * bonus
@@ -416,157 +309,149 @@ class MainActivity : AppCompatActivity() {
         powerClick = 1.0
         soulscoins = 0.0
 
+        // Reset UI
         updateUI()
 
+        // Remove callbacks
         handler.removeCallbacks(updateCoinsPerSecondTask)
 
+        // Clear preferences
         val prefs = getSharedPreferences("game_prefs", Context.MODE_PRIVATE)
         prefs.edit().clear().apply()
 
+        // Reset minerio image
         val minerioImageView: ImageView = findViewById(R.id.minerio1)
         minerioImageView.setImageResource(R.drawable.minerio1)
         minerioImageView.tag = "minerio1"
         currentMinerioState = "minerio1"
 
-        val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
-        upgradeButton.text = "Upgrade Cost : ${formatDoubleNumber(upgrade1Cost)}"
+        // Update upgrade button text
+        for (i in 1..6) {
+            val upgradeButton: Button = findViewById(resources.getIdentifier("btn_upgrade$i", "id", packageName))
+            upgradeButton.text = "Upgrade Cost : ${formatDoubleNumber(5.0 * 10.0.pow(i - 1))}"
+        }
 
-        val upgradeButton2: Button = findViewById(R.id.btn_upgrade2)
-        upgradeButton2.text = "Upgrade Cost : ${formatDoubleNumber(upgrade2Cost)}"
-
-        val upgradeButton3: Button = findViewById(R.id.btn_upgrade3)
-        upgradeButton3.text = "Upgrade Cost : ${formatDoubleNumber(upgrade3Cost)}"
-
-        val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
-        upgradeButton4.text = "Upgrade Cost : ${formatDoubleNumber(upgrade4Cost)}"
-
-        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
-        upgradeButton5.text = "Upgrade Cost : ${formatDoubleNumber(upgrade5Cost)}"
-
-        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
-        upgradeButton6.text = "Upgrade Cost : ${formatDoubleNumber(upgrade6Cost)}"
-
+        // Update souls coins
         val soulsCoinsHaveTextView = findViewById<TextView>(R.id.souls_coins_have)
         soulsCoinsHaveTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoinshave)}"
 
         val soulsCoinsTextView = findViewById<TextView>(R.id.souls_coins)
         soulsCoinsTextView.text = "Souls Coins : ${formatDoubleNumber(soulscoins)}"
 
+        // Post update task
         handler.post(updateCoinsPerSecondTask)
-    }
+    } //optimize
 
     private fun formatDoubleNumber(number: Double): String {
-        return when {
-            number < 1000 -> String.format("%.0f", number)
-            number < 1_000_000 -> String.format("%.1fk", number / 1000.0)
-            number < 1_000_000_000 -> String.format("%.1fM", number / 1_000_000.0)
-            number < 1_000_000_000_000 -> String.format("%.1fB", number / 1_000_000_000.0)
-            number < 1_000_000_000_000_000 -> String.format("%.1fT", number / 1_000_000_000_000.0)
-            else -> String.format("%.1e", number)
+        val labels = arrayOf("", "k", "M", "B", "T", "Q", "QQ", "S", "SS", "O", "N", "D", "UN", "DD")
+        var formattedNumber = number
+        var labelIndex = 0
+
+        while (formattedNumber >= 1000.0 && labelIndex < labels.size - 1) {
+            formattedNumber /= 1000.0
+            labelIndex++
         }
-    }
+
+        return String.format(if (formattedNumber % 1 == 0.0) "%.0f" else "%.1f", formattedNumber) + labels[labelIndex]
+    } //optimize
 
     override fun onDestroy() {
         super.onDestroy()
 
+        // Remove the callbacks for the updateCoinsPerSecondTask
         handler.removeCallbacks(updateCoinsPerSecondTask)
-        hitSoundMap.values.forEach {
-            it.release()
-        }
-    }
+
+        // Release all sound resources in hitSoundMap
+        hitSoundMap.values.forEach { it.release() }
+    } //optimize
 
     override fun onPause() {
         super.onPause()
 
         val prefs = getSharedPreferences("game_prefs", Context.MODE_PRIVATE)
         val editor = prefs.edit()
-        editor.putFloat("coins", coins.toFloat())
-        editor.putFloat("coinsPerSecond", coinsPerSecond.toFloat())
-        editor.putFloat("upgrade1CoinsPerSecond", upgrade1CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade4CoinsPerSecond", upgrade4CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade4CoinsPerSecond", upgrade5CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade4CoinsPerSecond", upgrade6CoinsPerSecond.toFloat())
-        editor.putFloat("upgrade1Cost", upgrade1Cost.toFloat())
-        editor.putFloat("upgrade2Cost", upgrade2Cost.toFloat())
-        editor.putFloat("upgrade3Cost", upgrade3Cost.toFloat())
-        editor.putFloat("upgrade4Cost", upgrade4Cost.toFloat())
-        editor.putFloat("upgrade5Cost", upgrade5Cost.toFloat())
-        editor.putFloat("upgrade6Cost", upgrade6Cost.toFloat())
-        editor.putString("currentMinerioState", currentMinerioState)
+
+        // Define a list of keys and their corresponding values
+        val dataToSave = mapOf(
+            "coins" to coins,
+            "coinsPerSecond" to coinsPerSecond,
+            "upgrade1CoinsPerSecond" to upgrade1CoinsPerSecond,
+            "upgrade4CoinsPerSecond" to upgrade4CoinsPerSecond,
+            "upgrade5CoinsPerSecond" to upgrade5CoinsPerSecond,
+            "upgrade6CoinsPerSecond" to upgrade6CoinsPerSecond,
+            "upgrade1Cost" to upgrade1Cost,
+            "upgrade2Cost" to upgrade2Cost,
+            "upgrade3Cost" to upgrade3Cost,
+            "upgrade4Cost" to upgrade4Cost,
+            "upgrade5Cost" to upgrade5Cost,
+            "upgrade6Cost" to upgrade6Cost,
+            "currentMinerioState" to currentMinerioState
+        )
+
+        // Iterate through the data and save it to preferences
+        dataToSave.forEach { (key, value) ->
+            when (value) {
+                is Float -> editor.putFloat(key, value)
+                is String -> editor.putString(key, value)
+            }
+        }
+
         editor.apply()
-    }
+    } //optimize
 
     override fun onResume() {
         super.onResume()
 
         val prefs = getSharedPreferences("game_prefs", Context.MODE_PRIVATE)
+
         coins = prefs.getFloat("coins", 0.0f).toDouble()
         coinsPerSecond = prefs.getFloat("coinsPerSecond", 0.0f).toDouble()
         upgrade1CoinsPerSecond = prefs.getFloat("upgrade1CoinsPerSecond", 2.0f).toDouble()
         upgrade4CoinsPerSecond = prefs.getFloat("upgrade4CoinsPerSecond", 100.0f).toDouble()
         upgrade5CoinsPerSecond = prefs.getFloat("upgrade5CoinsPerSecond", 25000.0f).toDouble()
         upgrade6CoinsPerSecond = prefs.getFloat("upgrade6CoinsPerSecond", 100000.0f).toDouble()
-        upgrade1Cost = prefs.getFloat("upgrade1Cost", 5.0f).toDouble()
-        upgrade2Cost = prefs.getFloat("upgrade2Cost", 50.0f).toDouble()
-        upgrade3Cost = prefs.getFloat("upgrade3Cost", 2.0f).toDouble()
-        upgrade4Cost = prefs.getFloat("upgrade4Cost", 50000.0f).toDouble()
-        upgrade5Cost = prefs.getFloat("upgrade5Cost", 250000.0f).toDouble()
-        upgrade6Cost = prefs.getFloat("upgrade6Cost", 1000000.0f).toDouble()
-        currentMinerioState = prefs.getString("currentMinerioState", "minerio1") ?: "minerio1"
 
-        val upgradeButton: Button = findViewById(R.id.btn_upgrade1)
-        upgradeButton.text = "Upgrade Cost : ${formatDoubleNumber(upgrade1Cost)}"
+        val upgradeCosts = mapOf(
+            R.id.btn_upgrade1 to prefs.getFloat("upgrade1Cost", 5.0f).toDouble(),
+            R.id.btn_upgrade2 to prefs.getFloat("upgrade2Cost", 50.0f).toDouble(),
+            R.id.btn_upgrade3 to prefs.getFloat("upgrade3Cost", 2.0f).toDouble(),
+            R.id.btn_upgrade4 to prefs.getFloat("upgrade4Cost", 50000.0f).toDouble(),
+            R.id.btn_upgrade5 to prefs.getFloat("upgrade5Cost", 250000.0f).toDouble(),
+            R.id.btn_upgrade6 to prefs.getFloat("upgrade6Cost", 1000000.0f).toDouble()
+        )
 
-        val upgradeButton2: Button = findViewById(R.id.btn_upgrade2)
-        upgradeButton2.text = "Upgrade Cost : ${formatDoubleNumber(upgrade2Cost)}"
+        val upgradeButtonIds = listOf(R.id.btn_upgrade1, R.id.btn_upgrade2, R.id.btn_upgrade3, R.id.btn_upgrade4, R.id.btn_upgrade5, R.id.btn_upgrade6)
 
-        val upgradeButton3: Button = findViewById(R.id.btn_upgrade3)
-        upgradeButton3.text = "Upgrade Cost : ${formatDoubleNumber(upgrade3Cost)}"
-
-        val upgradeButton4: Button = findViewById(R.id.btn_upgrade4)
-        upgradeButton4.text = "Upgrade Cost : ${formatDoubleNumber(upgrade4Cost)}"
-
-        val upgradeButton5: Button = findViewById(R.id.btn_upgrade5)
-        upgradeButton5.text = "Upgrade Cost : ${formatDoubleNumber(upgrade5Cost)}"
-
-        val upgradeButton6: Button = findViewById(R.id.btn_upgrade6)
-        upgradeButton6.text = "Upgrade Cost : ${formatDoubleNumber(upgrade6Cost)}"
-
-        val minerioImageView: ImageView = findViewById(R.id.minerio1)
-
-        when (currentMinerioState) {
-            "minerio1" -> minerioImageView.setImageResource(R.drawable.minerio1)
-            "minerio2" -> minerioImageView.setImageResource(R.drawable.minerio2)
-            "minerio3" -> minerioImageView.setImageResource(R.drawable.minerio3)
-            "minerio4" -> minerioImageView.setImageResource(R.drawable.minerio4)
-            "minerio5" -> minerioImageView.setImageResource(R.drawable.minerio5)
-            "minerio6" -> minerioImageView.setImageResource(R.drawable.minerio6)
-            "minerio7" -> minerioImageView.setImageResource(R.drawable.minerio7)
-            "minerio8" -> minerioImageView.setImageResource(R.drawable.minerio8)
-            "minerio9" -> minerioImageView.setImageResource(R.drawable.minerio9)
-            "minerio10" -> minerioImageView.setImageResource(R.drawable.minerio10)
-            "minerio11" -> minerioImageView.setImageResource(R.drawable.minerio11)
-            "minerio12" -> minerioImageView.setImageResource(R.drawable.minerio12)
-            "minerio13" -> minerioImageView.setImageResource(R.drawable.minerio13)
-            "minerio14" -> minerioImageView.setImageResource(R.drawable.minerio14)
-            "minerio15" -> minerioImageView.setImageResource(R.drawable.minerio15)
-            "minerio16" -> minerioImageView.setImageResource(R.drawable.minerio16)
+        for (buttonId in upgradeButtonIds) {
+            val upgradeButton: Button = findViewById(buttonId)
+            upgradeButton.text = "Upgrade Cost : ${formatDoubleNumber(upgradeCosts[buttonId] ?: 0.0)}"
         }
 
+        currentMinerioState = prefs.getString("currentMinerioState", "minerio1") ?: "minerio1"
+
+        val minerioImageView: ImageView = findViewById(R.id.minerio1)
+        val minerioDrawableId = resources.getIdentifier(currentMinerioState, "drawable", packageName)
+        minerioImageView.setImageResource(minerioDrawableId)
         minerioImageView.tag = currentMinerioState
 
         updateUI()
 
         handler.removeCallbacks(updateCoinsPerSecondTask)
         handler.post(updateCoinsPerSecondTask)
-    }
+    } //optimize
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putDouble("coins", coins)
-        outState.putDouble("coinsPerSecond", coinsPerSecond)
-    }
+        val stateToSave = mapOf(
+            "coins" to coins,
+            "coinsPerSecond" to coinsPerSecond
+        )
+
+        stateToSave.forEach { (key, value) ->
+            outState.putDouble(key, value)
+        }
+    } //optimize
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -575,9 +460,8 @@ class MainActivity : AppCompatActivity() {
         coinsPerSecond = savedInstanceState.getDouble("coinsPerSecond", coinsPerSecond)
 
         updateUI()
-
         handler.post(updateCoinsPerSecondTask)
-    }
+    } //optimize
 
     fun goToAchivements(view: View) {
         try {
@@ -587,7 +471,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
 
     fun goToRank(view: View) {
         try {
@@ -596,7 +480,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
 
     private fun isNatal(): Boolean {
         val calendario = Calendar.getInstance()
@@ -604,11 +488,12 @@ class MainActivity : AppCompatActivity() {
         val dataAtual = formato.format(calendario.time)
 
         // Verifique se a data atual é 25 de dezembro
-        return dataAtual == "18-10-${getAnoAtual()}"
-    }
+        return dataAtual == "25-10-${getAnoAtual()}"
+    } //optimize
 
     private fun getAnoAtual(): Int {
         val calendario = Calendar.getInstance()
         return calendario.get(Calendar.YEAR)
-    }
+    } //optimize
+
 }

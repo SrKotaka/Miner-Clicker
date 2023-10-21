@@ -73,7 +73,6 @@ expApp.post('/usuarios', (req, res) => {
                 res.status(409).send('409 Conflict');
             } else {
                 addUser(email, coins, name, password).then(() => {
-                    console.log("tchau");
                     res.send({response: '201 Created'});
                 });
             }
@@ -114,5 +113,5 @@ expApp.use((req, res) => {
 });
 
 expApp.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}/usuarios`);
 });
