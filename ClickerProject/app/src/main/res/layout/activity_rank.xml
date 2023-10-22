@@ -15,14 +15,14 @@
             android:layout_width="50dp"
             android:background="@drawable/minerio1"
             android:onClick="goToMain"
-    />
+            android:importantForAccessibility="no"/>
     <ImageButton
             android:layout_gravity="end"
             android:layout_height="40dp"
             android:layout_width="70dp"
             android:background="@drawable/achivements"
             android:onClick="goToAchivements"
-    />
+            android:importantForAccessibility="no"/>
 
     <LinearLayout
                 android:layout_width="wrap_content"
@@ -30,10 +30,29 @@
                 android:background="@drawable/background2"
                 android:orientation="vertical"
                 android:padding="15dp">
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank"
-        />
+        <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="867dp"
+                android:layout_gravity="center"
+                android:background="#3e1c00"
+        >
+            <TextView
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="cursive"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:id="@+id/rank"
+
+            />
+            <TextView
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="cursive"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:id="@+id/coins"
+            />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

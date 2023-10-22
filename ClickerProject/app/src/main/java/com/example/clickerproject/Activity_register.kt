@@ -21,38 +21,46 @@ class Activity_register : AppCompatActivity() {
     }
 
     fun registerInDataBase(view: View) {
-        val email = findViewById<TextView>(R.id.editTextEmail).text.toString()
-        val name = findViewById<TextView>(R.id.editTextName).text.toString()
-        val password = findViewById<TextView>(R.id.editTextPassword).text.toString()
+        val emailView = findViewById<TextView>(R.id.editTextEmail)
+        val nameView = findViewById<TextView>(R.id.editTextName)
+        val passwordView = findViewById<TextView>(R.id.editTextPassword)
+
+        val email = emailView.text.toString()
+        val name = nameView.text.toString()
+        val password = passwordView.text.toString()
         val coins = 0.0
 
         if (email.isEmpty() || name.isEmpty() || password.isEmpty()) {
-            Toast.makeText(applicationContext, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            showToast("Please fill in all fields")
             return
         }
 
-        val request = JSONObject()
-        request.put("email", email)
-        request.put("name", name)
-        request.put("password", password)
-        request.put("coins", coins)
+        val user = JSONObject()
+        user.put("email", email)
+        user.put("name", name)
+        user.put("password", password)
+        user.put("coins", coins)
 
-        val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.52.46:3000/usuarios"
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.186.174:3000/usuarios"
 
         val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.POST, url, request,
+            Request.Method.POST, url, user,
             { response ->
                 val goToGame = Intent(this, MainActivity::class.java)
                 goToGame.putExtra("email", email)
                 startActivity(goToGame)
             },
             { error ->
-                Toast.makeText(applicationContext, "Registration failed: ${error.message}", Toast.LENGTH_SHORT).show()
+                showToast("Registration failed: ${error.message}")
             }
         )
         queue.add(jsonObjectRequest)
-    }
+    } //optimize
+
+    private fun showToast(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    } //optimize
 
     fun goToLogin(view: View) {
         try {
@@ -61,5 +69,6 @@ class Activity_register : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
+
 }

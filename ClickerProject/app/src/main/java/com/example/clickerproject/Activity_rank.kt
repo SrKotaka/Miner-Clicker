@@ -16,10 +16,14 @@ class Activity_rank : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank)
+        nameRank()
+        coinsRank()
+    }
 
+    private fun nameRank(){
         val rankTextView = findViewById<TextView>(R.id.rank)
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.52.46:3000/usuarios"
+        val url = "http://192.168.186.174:3000/usuarios"
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -30,9 +34,8 @@ class Activity_rank : AppCompatActivity() {
                     for (i in 0 until response.length()) {
                         val jsonObject = response.getJSONObject(i)
                         val name = jsonObject.getString("name")
-                        val coins = jsonObject.getString("coins")
 
-                        users.append("$name tem $coins coins\n")
+                        users.append("$name\n")
                     }
 
                     rankTextView.text = users.toString()
@@ -41,11 +44,41 @@ class Activity_rank : AppCompatActivity() {
                 }
             },
             { error ->
-                Toast.makeText(applicationContext, "Error to pull database: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Error to pull name: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         )
         queue.add(jsonArrayRequest)
-    }
+    } //optimize
+
+    private fun coinsRank(){
+        val coinsTextView = findViewById<TextView>(R.id.coins)
+        val queue: RequestQueue = Volley.newRequestQueue(this)
+        val url = "http://192.168.186.174:3000/usuarios"
+
+        val jsonArrayRequest = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val users = StringBuilder()
+
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        val coins = jsonObject.getString("coins")
+
+                        users.append("$coins\n")
+                    }
+
+                    coinsTextView.text = users.toString()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(applicationContext, "Error to pull coins: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        )
+        queue.add(jsonArrayRequest)
+    } //optimize
 
     fun goToMain(view: View) {
         try {
@@ -54,7 +87,7 @@ class Activity_rank : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
 
     fun goToAchivements(view: View) {
         try {
@@ -63,5 +96,6 @@ class Activity_rank : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
+
 }

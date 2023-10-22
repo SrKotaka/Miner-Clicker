@@ -20,35 +20,41 @@ class Activity_login : AppCompatActivity() {
     }
 
     fun loginInDataBase(view: View) {
-        val email = findViewById<TextView>(R.id.editTextEmail).text.toString()
-        val password = findViewById<TextView>(R.id.editTextPassword).text.toString()
+        val emailView = findViewById<TextView>(R.id.editTextEmail)
+        val passwordView = findViewById<TextView>(R.id.editTextPassword)
+        val email = emailView.text.toString()
+        val password = passwordView.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(applicationContext, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            showToast("Please fill in all fields")
             return
         }
 
-        val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.52.46:3000/usuarios/$email"
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.186.174:3000/usuarios/$email"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
-                if(password == response.getString("password"))
-                {
+                val correctPassword = response.optString("password")
+                if (password == correctPassword) {
                     val goToGame = Intent(this, MainActivity::class.java)
                     goToGame.putExtra("email", email)
                     startActivity(goToGame)
                 } else {
-                    Toast.makeText(applicationContext, "Wrong password", Toast.LENGTH_SHORT).show()
+                    showToast("Wrong password")
                 }
             },
             { error ->
-                Toast.makeText(applicationContext, "Invalid email", Toast.LENGTH_SHORT).show()
+                showToast("Invalid email")
             }
         )
         queue.add(jsonObjectRequest)
-    }
+    } //optimize
+
+    private fun showToast(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    } //optimize
 
     fun goToRegister(view: View) {
         try {
@@ -57,5 +63,5 @@ class Activity_login : AppCompatActivity() {
         } catch (e: Exception){
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
 }
