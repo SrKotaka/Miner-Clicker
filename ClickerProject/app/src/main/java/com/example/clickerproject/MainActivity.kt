@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (isNatal()) {
-            //createSnowfall()
+            createSnowfall()
         }
 
         updateUI()
@@ -192,6 +192,10 @@ class MainActivity : AppCompatActivity() {
 
         handler.post(updateCoinsPerSecondTask)
         handler.post(updateAPIperMinute)
+    }
+
+    private fun createSnowfall() {
+        TODO("Not yet implemented")//fazer trocar fundo e colocar toca de natal no minerio
     }
 
     private val updateCoinsPerSecondTask = object : Runnable {

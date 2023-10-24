@@ -25,45 +25,54 @@
             android:importantForAccessibility="no"/>
 
     <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background2"
-                android:padding="15dp">
-        <TextView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:fontFamily="cursive"
-                android:textAlignment="center"
-                android:textSize="30dp"
-                android:textColor="@color/white"
-                android:text="Name"
-        />
-        <TextView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="30dp"
-                android:fontFamily="cursive"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:text="Coins"
-        />
-        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background2"
+            android:padding="15dp">
+        <LinearLayout
                 android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:fontFamily="cursive"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:id="@+id/rank"
-        />
-        <TextView
+                android:layout_height="wrap_content"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    android:text="Name:"
+            />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="cursive"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:id="@+id/rank"
+            />
+        </LinearLayout>
+
+        <LinearLayout
                 android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:fontFamily="cursive"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:id="@+id/coins"
-        />
+                android:layout_height="wrap_content"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    android:text="Coins:"
+            />
+            <TextView
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="cursive"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:id="@+id/coins"
+            />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
