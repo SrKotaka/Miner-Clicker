@@ -44,7 +44,7 @@ class Activity_achivements : AppCompatActivity() {
         if (coins >= 100000000) {
             achivement6.setBackgroundResource(R.drawable.conclued)
         }
-    }
+    } //optimize
 
     fun goToMain(view: View) {
         try {
@@ -53,7 +53,7 @@ class Activity_achivements : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
 
     fun goToRank(view: View) {
         try {
@@ -62,5 +62,5 @@ class Activity_achivements : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-    }
+    } //optimize
 }
