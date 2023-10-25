@@ -5,22 +5,21 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.pow
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var coinsPerSecondTextView: TextView
@@ -193,7 +192,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createSnowfall() {
-        TODO("Not yet implemented")//fazer trocar fundo e colocar toca de natal no minerio
+        val minerio1natal: ImageView = findViewById(R.id.minerio1)
+        minerio1natal.setImageResource(R.drawable.minerio1natal)
+        val videoview = findViewById<View>(R.id.videoBackground) as VideoView
+        val uri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.backgroundnatalnew)
+        videoview.setVideoURI(uri)
+        videoview.start()
     }
 
     private val updateCoinsPerSecondTask = object : Runnable {
@@ -213,7 +217,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateAPI() {
         val email = intent.getStringExtra("email")
-        val url = "http://192.168.186.174:3000/usuarios/$email"
+        val url = "http://192.168.242.222:3000/usuarios/$email"
 
         val request = JSONObject().apply {
             put("email", email)

@@ -42,7 +42,7 @@ class Activity_register : AppCompatActivity() {
         user.put("coins", coins)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.186.174:3000/usuarios"
+        val url = "http://192.168.242.222:3000/usuarios"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, user,
