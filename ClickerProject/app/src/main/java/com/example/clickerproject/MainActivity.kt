@@ -96,13 +96,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val upgrade2Multiplier = 2
         val upgradeButton2: Button = findViewById(R.id.btn_upgrade2)
-
         upgradeButton2.setOnClickListener {
             if (coins >= upgrade2Cost) {
                 coins -= upgrade2Cost
-                coinsPerSecond *= upgrade2Multiplier
+                coinsPerSecond *= 2
                 upgrade2Cost = (upgrade2Cost * 5) + 50
                 upgrade1CoinsPerSecond *= 2
                 upgrade4CoinsPerSecond *= 2
