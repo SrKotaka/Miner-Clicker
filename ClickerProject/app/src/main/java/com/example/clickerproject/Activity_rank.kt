@@ -23,7 +23,7 @@ class Activity_rank : AppCompatActivity() {
     private fun nameRank(){
         val rankTextView = findViewById<TextView>(R.id.rank)
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        val url = "http://192.168.242.222:3000/usuarios"
+        val url = "http://192.168.56.1:3000/usuarios"
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,

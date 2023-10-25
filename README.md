@@ -1,2 +1,2 @@
 # Miner-Clicker
- A made game in kotlin
+ A game made in kotlin

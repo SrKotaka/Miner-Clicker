@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateAPI() {
         val email = intent.getStringExtra("email")
-        val url = "http://192.168.242.222:3000/usuarios/$email"
+        val url = "http://192.168.56.1:3000/usuarios/$email"
 
         val request = JSONObject().apply {
             put("email", email)
