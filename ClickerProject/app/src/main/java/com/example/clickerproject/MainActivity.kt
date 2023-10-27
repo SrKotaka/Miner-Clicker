@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
     private var upgrade4CoinsPerSecond = 100.0
     private var upgrade5CoinsPerSecond = 25000.0
     private var upgrade6CoinsPerSecond = 100000.0
-    private var powerClick = 1.0
+    private var powerClick = 5.0
     private var soulscoins = 0.0
     private var soulscoinshave = 0.0
     private val hitSoundMap = mutableMapOf<Int, MediaPlayer>()
     private val handler = Handler()
-    private var currentMinerioState = "minerio1"
+    private var currentMinerioState = "minerio0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         upgrade6CoinsPerSecondTextView = findViewById(R.id.upgrade6_coins_per_second)
 
         val minerioImageView: ImageView = findViewById(R.id.minerio1)
-        minerioImageView.tag = "minerio1"
+        minerioImageView.tag = "minerio0"
         minerioImageView.setOnClickListener {
 
             val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce_animation)
@@ -116,12 +116,29 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.minerio14, R.drawable.minerio15, R.drawable.minerio16
                 )
 
-                if (minerioImageView.tag == "minerio1" && minerioImages.size > 0) {
-                    val nextMinerioIndex = minerioImages.indexOf(resources.getIdentifier(currentMinerioState, "drawable", packageName)) + 1
-                    if (nextMinerioIndex < minerioImages.size) {
-                        minerioImageView.setImageResource(minerioImages[nextMinerioIndex])
-                        minerioImageView.tag = "minerio" + (nextMinerioIndex + 1)
-                        currentMinerioState = "minerio" + (nextMinerioIndex + 1)
+                val natalImages = arrayOf(
+                    R.drawable.minerio2natal, R.drawable.minerio3natal, R.drawable.minerio4natal,
+                    R.drawable.minerio5natal, R.drawable.minerio6natal, R.drawable.minerio7natal,
+                    R.drawable.minerio8natal, R.drawable.minerio9natal, R.drawable.minerio10natal,
+                    R.drawable.minerio11natal, R.drawable.minerio12natal, R.drawable.minerio13natal,
+                    R.drawable.minerio14natal, R.drawable.minerio15natal, R.drawable.minerio16natal
+                )
+
+                if (minerioImages.size > 0) {
+                    var nextMinerioIndex = ""
+                    if(minerioImageView.tag.toString().length > 8) {
+                        nextMinerioIndex = minerioImageView.tag.toString()[7]+""+minerioImageView.tag.toString()[8]
+                    }else{
+                        nextMinerioIndex = minerioImageView.tag.toString()[7]+""
+                    }
+                    val nextMinerio = Integer.parseInt(nextMinerioIndex)
+                    if (nextMinerio < minerioImages.size) {
+                        if(!isNatal())
+                            changeImage(minerioImageView, minerioImages[nextMinerio])
+                        else
+                            changeImage(minerioImageView, natalImages[nextMinerio])
+                        minerioImageView.tag = "minerio" + (nextMinerio + 1)
+                        currentMinerioState = "minerio" + (nextMinerio + 1)
                     }
                 }
                 updateUI()
@@ -193,11 +210,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun createSnowfall() {
         val minerio1natal: ImageView = findViewById(R.id.minerio1)
-        minerio1natal.setImageResource(R.drawable.minerio1natal)
+        minerio1natal.setImageResource(R.drawable.minerio1natal) // Use as imagens de Natal
         val videoview = findViewById<View>(R.id.videoBackground) as VideoView
         val uri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.backgroundnatalnew)
         videoview.setVideoURI(uri)
         videoview.start()
+    }
+
+    private fun changeImage(minerio: ImageView, imagem: Int){
+        minerio.setImageResource(imagem)
     }
 
     private val updateCoinsPerSecondTask = object : Runnable {
@@ -217,7 +238,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateAPI() {
         val email = intent.getStringExtra("email")
-        val url = "http://192.168.56.1:3000/usuarios/$email"
+        val url = "http://192.168.142.222:3000/usuarios/$email"
 
         val request = JSONObject().apply {
             put("email", email)
@@ -328,8 +349,8 @@ class MainActivity : AppCompatActivity() {
         // Reset minerio image
         val minerioImageView: ImageView = findViewById(R.id.minerio1)
         minerioImageView.setImageResource(R.drawable.minerio1)
-        minerioImageView.tag = "minerio1"
-        currentMinerioState = "minerio1"
+        minerioImageView.tag = "minerio0"
+        currentMinerioState = "minerio0"
 
         // Update upgrade button text
         for (i in 1..6) {
@@ -433,12 +454,12 @@ class MainActivity : AppCompatActivity() {
             upgradeButton.text = "Upgrade Cost : ${formatDoubleNumber(upgradeCosts[buttonId] ?: 0.0)}"
         }
 
-        currentMinerioState = prefs.getString("currentMinerioState", "minerio1") ?: "minerio1"
+        currentMinerioState = prefs.getString("currentMinerioState", "minerio0") ?: "minerio0"
 
         val minerioImageView: ImageView = findViewById(R.id.minerio1)
         val minerioDrawableId = resources.getIdentifier(currentMinerioState, "drawable", packageName)
         minerioImageView.setImageResource(minerioDrawableId)
-        minerioImageView.tag = currentMinerioState
+        //minerioImageView.tag = currentMinerioState
 
         updateUI()
 
@@ -494,7 +515,7 @@ class MainActivity : AppCompatActivity() {
         val dataAtual = formato.format(calendario.time)
 
         // Verifique se a data atual é 25 de dezembro
-        return dataAtual == "25-10-${getAnoAtual()}"
+        return dataAtual == "27-10-${getAnoAtual()}"
     } //optimize
 
     private fun getAnoAtual(): Int {
