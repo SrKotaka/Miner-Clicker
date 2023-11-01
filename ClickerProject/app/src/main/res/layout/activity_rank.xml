@@ -66,7 +66,7 @@
                     android:text="Coins:"
             />
             <TextView
-                    android:layout_width="190dp"
+                    android:layout_width="115dp"
                     android:layout_height="match_parent"
                     android:fontFamily="cursive"
                     android:textAlignment="center"

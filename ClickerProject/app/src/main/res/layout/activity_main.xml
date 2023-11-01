@@ -9,12 +9,6 @@
               android:id="@+id/containerNeve"
               tools:context=".MainActivity">
 
-    <VideoView
-            android:id="@+id/videoBackground"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"/>
-
     <TextView
             android:id="@+id/coins"
             android:layout_width="wrap_content"

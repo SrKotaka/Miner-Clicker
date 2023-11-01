@@ -108,22 +108,29 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:padding="10dp"
-                    android:src="@drawable/achivement9"
-                    android:id="@+id/achivement9"
+                    android:src="@drawable/arcoirirs"
+                    android:id="@+id/arcoirirs"
             />
             <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:padding="10dp"
-                    android:src="@drawable/achivement10"
-                    android:id="@+id/achivement10"
+                    android:src="@drawable/rosa"
+                    android:id="@+id/rosa"
             />
             <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:padding="10dp"
-                    android:src="@drawable/achivement11"
-                    android:id="@+id/achivement11"
+                    android:src="@drawable/rubi"
+                    android:id="@+id/rubi"
+            />
+            <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="10dp"
+                    android:src="@drawable/turquesa"
+                    android:id="@+id/turquesa"
             />
         </LinearLayout>
     </LinearLayout>

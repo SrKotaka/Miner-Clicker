@@ -193,28 +193,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (isNatal()) {
-            createSnowfall()
-        }
-
         updateUI()
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.musica)
+        /*mediaPlayer = MediaPlayer.create(this, R.raw.musica)
         mediaPlayer?.setVolume(0.1f, 0.1f)
         mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+        mediaPlayer?.start()*/
 
         handler.post(updateCoinsPerSecondTask)
         handler.post(updateAPIperMinute)
+
+        /*if (isNatal()) {
+            createSnowfall()
+        }*/
+        handler.postDelayed({
+            if (isNatal()) {
+                createSnowfall()
+            }else {
+                minerioImageView.setImageResource(R.drawable.minerio1)
+            }
+        }, 800)
     }
 
     private fun createSnowfall() {
         val minerio1natal: ImageView = findViewById(R.id.minerio1)
         minerio1natal.setImageResource(R.drawable.minerio1natal) // Use as imagens de Natal
-        val videoview = findViewById<View>(R.id.videoBackground) as VideoView
-        val uri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.backgroundnatalnew)
-        videoview.setVideoURI(uri)
-        videoview.start()
     }
 
     private fun changeImage(minerio: ImageView, imagem: Int){
@@ -238,7 +241,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateAPI() {
         val email = intent.getStringExtra("email")
-        val url = "http://192.168.142.222:3000/usuarios/$email"
+        val url = "http://192.168.156.70:3000/usuarios/$email"
 
         val request = JSONObject().apply {
             put("email", email)
@@ -251,7 +254,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Coins updated", Toast.LENGTH_SHORT).show()
             },
             { error ->
-                Toast.makeText(applicationContext, "Error to update coins", Toast.LENGTH_SHORT).show()
+
             }
         )
 
@@ -300,6 +303,7 @@ class MainActivity : AppCompatActivity() {
 
         updateUpgradeButtons()
         updateResetButton()
+
     } //optimize
 
     private fun resetGame() {
@@ -515,7 +519,7 @@ class MainActivity : AppCompatActivity() {
         val dataAtual = formato.format(calendario.time)
 
         // Verifique se a data atual é 25 de dezembro
-        return dataAtual == "27-10-${getAnoAtual()}"
+        return dataAtual == "25-12-${getAnoAtual()}"
     } //optimize
 
     private fun getAnoAtual(): Int {

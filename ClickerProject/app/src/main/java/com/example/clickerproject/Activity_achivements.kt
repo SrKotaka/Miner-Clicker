@@ -40,10 +40,26 @@ class Activity_achivements : AppCompatActivity() {
             achivement5.setBackgroundResource(R.drawable.conclued)
         }
 
-        val achivement6 = findViewById<ImageView>(R.id.achivement6)
+        val arcoirirs = findViewById<ImageView>(R.id.arcoirirs)
         if (coins >= 100000000) {
-            achivement6.setBackgroundResource(R.drawable.conclued)
+            arcoirirs.setBackgroundResource(R.drawable.conclued)
         }
+
+        val rosa = findViewById<ImageView>(R.id.rosa)
+        if (coins >= 100000000) {
+            rosa.setBackgroundResource(R.drawable.conclued)
+        }
+
+        val rubi = findViewById<ImageView>(R.id.rubi)
+        if (coins >= 100000000) {
+            rubi.setBackgroundResource(R.drawable.conclued)
+        }
+
+        val turquesa = findViewById<ImageView>(R.id.turquesa)
+        if (coins >= 100000000) {
+            turquesa.setBackgroundResource(R.drawable.conclued)
+        }
+
     } //optimize
 
     fun goToMain(view: View) {
