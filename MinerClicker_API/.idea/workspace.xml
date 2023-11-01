@@ -5,16 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e550528e-075d-4588-abcd-5dc6d33f03a1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/drawable/minerio1natal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/raw/backgroundnatalnew.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/Activity_login.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/Activity_login.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/Activity_rank.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/Activity_rank.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/Activity_register.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/Activity_register.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/java/com/example/clickerproject/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/drawable/chapeu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/raw/backgroundnatal.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/../ClickerProject/app/src/main/res/raw/backgroundnatal.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
